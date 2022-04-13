@@ -6,12 +6,10 @@ import Profile from './Layout/Profile/profile';
 import Dashboard from './Layout/Dashboard/dashboard';
 import AdminM from './Layout/Admin-management/admin-management';
 import UserM from './Layout/User-management/user-management';
-import scriptChart from './bs-init';
+import scriptChart from './bs-init';//import de chay hieu ung dashboard
 
 import "./App.css";
 import gameLogo from './img/LTD2K.png';
-
-
 
 
 const isLogin = true;
