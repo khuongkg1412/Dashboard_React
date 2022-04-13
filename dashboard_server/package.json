@@ -4,13 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js"
+    "start": "node server/www"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "express": "^4.17.3",
-    "firebase": "^9.6.10"
-  }
+    "express-session": "^1.17.2",
+    "firebase": "^7.24.0",
+    "jade": "^1.11.0",
+    "morgan": "^1.10.0"
+  },
+  "type": "commonjs"
 }
