@@ -53,12 +53,21 @@ function adminProfile() {
                                                         <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Name</strong></label><input className="form-control" type="text" id="first_name" placeholder="Khuong Nguyen" name="first_name" /></div>
                                                     </div>
                                                     <div className="col">
-                                                        <div className="mb-3"><label className="form-label" htmlFor="last_name"><strong>Password</strong></label><input className="form-control" type="text" id="last_name" placeholder="*********" name="last_name" /></div>
+                                                        <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Username</strong></label><input className="form-control" type="text" id="username" placeholder="khuongnv" name="last_name" /></div>
+                                                    </div>
+
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col">
+                                                        <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="email" placeholder="khuongnvce140417@fpt.edu.vn" name="last_name" /></div>
+                                                    </div>
+                                                    <div className="col">
+                                                        <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label><input className="form-control" type="text" id="last_name" placeholder="0866069699" name="last_name" /></div>
                                                     </div>
                                                 </div>
                                                 <div className="row">
                                                     <div className="col">
-                                                        <div className="mb-3"><button className="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
+                                                        <div className="mb-3"><button className="btn btn-primary btn-sm" type="submit">Update Profile</button></div>
                                                     </div>
                                                     <div className="col">
                                                         <div className="mb-3"><button className="btn btn-primary btn-sm" type="submit">Change Password</button></div>

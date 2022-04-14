@@ -38,11 +38,10 @@ function dashboard() {
                                 <div className="card-body">
                                     <div className="row align-items-center no-gutters">
                                         <div className="col me-2">
-                                            <div className="text-uppercase text-primary fw-bold text-xs mb-1"><span>Earnings
-                                                (monthly)</span></div>
-                                            <div className="text-dark fw-bold h5 mb-0"><span>$40,000</span></div>
+                                            <div className="text-uppercase text-primary fw-bold text-xs mb-1"><span>Total Maps</span></div>
+                                            <div className="text-dark fw-bold h5 mb-0"><span>10</span></div>
                                         </div>
-                                        <div className="col-auto"><i className="fas fa-calendar fa-2x text-gray-300"></i></div>
+                                        <div className="col-auto"><i className="fas fa-map fa-2x text-gray-300"></i></div>
                                     </div>
                                 </div>
                             </div>
@@ -52,11 +51,10 @@ function dashboard() {
                                 <div className="card-body">
                                     <div className="row align-items-center no-gutters">
                                         <div className="col me-2">
-                                            <div className="text-uppercase text-success fw-bold text-xs mb-1"><span>Earnings
-                                                (annual)</span></div>
-                                            <div className="text-dark fw-bold h5 mb-0"><span>$215,000</span></div>
+                                            <div className="text-uppercase text-success fw-bold text-xs mb-1"><span>Player</span></div>
+                                            <div className="text-dark fw-bold h5 mb-0"><span>3</span></div>
                                         </div>
-                                        <div className="col-auto"><i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        <div className="col-auto"><i className="fas fa-user-check fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -94,9 +92,8 @@ function dashboard() {
                                 <div className="card-body">
                                     <div className="row align-items-center no-gutters">
                                         <div className="col me-2">
-                                            <div className="text-uppercase text-warning fw-bold text-xs mb-1"><span>Pending
-                                                Requests</span></div>
-                                            <div className="text-dark fw-bold h5 mb-0"><span>18</span></div>
+                                            <div className="text-uppercase text-warning fw-bold text-xs mb-1"><span>Killed Viruses</span></div>
+                                            <div className="text-dark fw-bold h5 mb-0"><span>142</span></div>
                                         </div>
                                         <div className="col-auto"><i className="fas fa-comments fa-2x text-gray-300"></i></div>
                                     </div>
@@ -108,7 +105,7 @@ function dashboard() {
                         <div className="col-lg-7 col-xl-8">
                             <div className="card shadow mb-4">
                                 <div className="card-header d-flex justify-content-between align-items-center">
-                                    <h6 className="text-primary fw-bold m-0">Earnings Overview</h6>
+                                    <h6 className="text-primary fw-bold m-0">Player Overview</h6>
                                     <div className="dropdown no-arrow"><button className="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i
                                         className="fas fa-ellipsis-v text-gray-400"></i></button>
                                         <div className="dropdown-menu shadow dropdown-menu-end animated--fade-in">
@@ -126,7 +123,7 @@ function dashboard() {
                         <div className="col-lg-5 col-xl-4">
                             <div className="card shadow mb-4">
                                 <div className="card-header d-flex justify-content-between align-items-center">
-                                    <h6 className="text-primary fw-bold m-0">Revenue Sources</h6>
+                                    <h6 className="text-primary fw-bold m-0">Player Gender</h6>
                                     <div className="dropdown no-arrow"><button className="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i
                                         className="fas fa-ellipsis-v text-gray-400"></i></button>
                                         <div className="dropdown-menu shadow dropdown-menu-end animated--fade-in">
