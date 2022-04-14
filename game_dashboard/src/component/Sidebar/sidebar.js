@@ -1,4 +1,6 @@
 import "../../../src/App.css";
+import "../../Layout/Login/loginForm.css"
+import { NavLink} from "react-router-dom";
 import gameLogo from '../../img/LTD2K.png';
 function sidebar() {
     return (
@@ -15,8 +17,20 @@ function sidebar() {
                         <a className="nav-link" href="/dashboard"><i
                             className="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/profile"><i
-                            className="fas fa-user"></i><span>Profile</span></a></li>
+                        <NavLink
+                            className="nav-link"
+                            to="/profile"
+                            
+                            activeStyle={{
+                                fontWeight: "bold",
+                               
+                                
+                              }}><i
+                            className="fas fa-user"></i><span>Profile</span>
+                        </NavLink>
+                        {/* <a className="nav-link" href="/profile"><i
+                            className="fas fa-user"></i><span>Profile</span></a> */}
+                    </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/userManagement"><i
                             className="fas fa-table"></i><span>User Management</span></a></li>

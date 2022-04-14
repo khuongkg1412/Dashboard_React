@@ -70,7 +70,7 @@ function Login() {
     }
 
     return (
-        <div className="bg-gradient-primary">
+        <div className="bg-gradient-primary" id="wrapper">
             < div className="container" >
                 <div className="row justify-content-center">
                     <div className="col-md-9 col-lg-12 col-xl-10">

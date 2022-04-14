@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import avatar from '../../img/khuong.jpg';
 
 
-const adminProfile = () => {
+const apdateProfile = () => {
     // useEffect(() => {
     //     const avatarDiv = document.querySelector(".avatar-pic");
     //     const avat = document.querySelector("#avatar");
@@ -35,7 +35,7 @@ const adminProfile = () => {
             <nav className="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                 <div className="container-fluid"><button className="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i className="fas fa-bars"></i></button>
                     <div className="nav-item align-self-center">
-                        <h3 className="text-dark mb-0">Profile</h3>
+                        <h3 className="text-dark mb-0">Update Profile</h3>
                     </div>
                     <ul className="navbar-nav flex-nowrap ms-auto">
                         <div className="d-none d-sm-block topbar-divider"></div>
@@ -84,27 +84,27 @@ const adminProfile = () => {
 
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Status</strong></label><input className="form-control" type="text" id="txt_status" value="1" readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Status</strong></label><input className="form-control" type="text" id="txt_status" placeholder="1" readOnly="true" required /></div>
                                                 </div>
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Username</strong></label><input className="form-control" type="text" id="txt_user_name" value="khuongnv" maxLength="20" readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Username</strong></label><input className="form-control" type="text" id="txt_user_name" placeholder="Username" maxLength="20" required /></div>
                                                 </div>
 
                                             </div>
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value="khuongnvce140417@fpt.edu.vn" maxLength="30" readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" placeholder="Email" maxLength="30" required /></div>
                                                 </div>
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label><input className="form-control" type="text" id="txt_phone_number" value="0866069699" maxLength="13" readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label><input className="form-control" type="text" id="txt_phone_number" placeholder="Number phone" maxLength="13" required /></div>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><button id="btn_update_profile" className="btn btn-primary btn-sm" type="submit">Update Profile</button></div>
+                                                    <div className="mb-3"><button id="btn_update_profile" className="btn btn-primary btn-sm" type="submit">Update</button></div>
                                                 </div>
                                                 <div className="col">
-                                                    <div className="mb-3"><button id="btn_change_password" className="btn btn-primary btn-sm" type="submit">Change Password</button></div>
+                                                    <div className="mb-3"><button id="btn_change_password" className="btn btn-primary btn-sm" type="submit">Cancel</button></div>
                                                 </div>
                                             </div>
                                         </form>
@@ -118,4 +118,4 @@ const adminProfile = () => {
         </div>
     )
 }
-export default adminProfile
+export default apdateProfile

@@ -3,3 +3,6 @@
     background-position: center;
     background-size: auto;
 }
+.nav-link:active{
+    background-color: beige;
+}
