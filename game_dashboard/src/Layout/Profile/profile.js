@@ -1,34 +1,47 @@
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import React, {useEffect,useState} from "react";
 import avatar from '../../img/khuong.jpg';
 
 
-const adminProfile = () => {
-    // useEffect(() => {
-    //     const avatarDiv = document.querySelector(".avatar-pic");
-    //     const avat = document.querySelector("#avatar");
-    //     const photoUpload = document.querySelector("#fileUpload");
-    //     const uploadFileBtn = document.querySelector("#btn_upload_img");
-    //     avatarDiv.addEventListener("mouseenter", function () {
-    //         uploadFileBtn.style.display = "block";
-    //     });
+const AdminProfile = () => {
+    const[user, setUser] = useState();
+    function getUser(){
+        // ("http://localhost:3001/"+Email)
+        axios.get("http://localhost:3001/khuongnvce140417@fpt.edu.vn").then(res=>{
+            setUser(res.data);
+            console.log(res.data);
+        });
 
-    //     avatarDiv.addEventListener("mouseleave", function () {
-    //         uploadFileBtn.style.display = "none";
-    //     });
+    }
+    getUser();
+    useEffect( () => {
+        // getUser();
+        const avatarDiv = document.querySelector(".avatar-pic");
+        const avat = document.querySelector("#avatar");
+        const photoUpload = document.querySelector("#fileUpload");
+        const uploadFileBtn = document.querySelector("#btn_upload_img");
+        avatarDiv.addEventListener("mouseenter", function () {
+            uploadFileBtn.style.display = "block";
+        });
 
-    //     photoUpload.addEventListener("change", function () {
-    //         const chosenPhoto = this.files[0];
+        avatarDiv.addEventListener("mouseleave", function () {
+            uploadFileBtn.style.display = "none";
+        });
 
-    //         if (chosenPhoto) {
-    //             const photoReader = new FileReader();
+        photoUpload.addEventListener("change", function () {
+            const chosenPhoto = this.files[0];
 
-    //             photoReader.addEventListener("load", function () {
-    //                 avat.setAttribute("src", photoReader.result);
-    //             });
-    //             photoReader.readAsDataURL(chosenPhoto);
-    //         }
-    //     });
-    // }, []);
+            if (chosenPhoto) {
+                const photoReader = new FileReader();
+
+                photoReader.addEventListener("load", function () {
+                    avat.setAttribute("src", photoReader.result);
+                });
+                photoReader.readAsDataURL(chosenPhoto);
+            }
+        });
+    });
+
     return (
 
         <div id="content">
@@ -84,19 +97,19 @@ const adminProfile = () => {
 
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Status</strong></label><input className="form-control" type="text" id="txt_status" value="1" readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Status</strong></label><input className="form-control" type="text" id="txt_status"  readOnly="true" required /></div>
                                                 </div>
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Username</strong></label><input className="form-control" type="text" id="txt_user_name" value="khuongnv" maxLength="20" readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Username</strong></label><input className="form-control" type="text" id="txt_user_name" value={user.Username} maxLength="20" readOnly="true" required /></div>
                                                 </div>
 
                                             </div>
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value="khuongnvce140417@fpt.edu.vn" maxLength="30" readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value={user.Email} maxLength="30" readOnly="true" required /></div>
                                                 </div>
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label><input className="form-control" type="text" id="txt_phone_number" value="0866069699" maxLength="13" readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label><input className="form-control" type="text" id="txt_phone_number" value={user.Phone} maxLength="13" readOnly="true" required /></div>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -118,4 +131,4 @@ const adminProfile = () => {
         </div>
     )
 }
-export default adminProfile
+export default AdminProfile;
