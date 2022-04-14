@@ -5,7 +5,7 @@
  */
 
 var app = require('./app');
-var debug = require('debug')('ranwildimail-admin-be:server');
+var debug = require('debug')('dashboard_server:server');
 var http = require('http');
 
 /**

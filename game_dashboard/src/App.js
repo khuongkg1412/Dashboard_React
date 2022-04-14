@@ -1,8 +1,8 @@
 import React from "react";
 
 import LoginForm from './Layout/Login/loginForm';
-// import Profile from './Profile/profile';
-// import Dashboard from './Layout/Dashboard/dashboard';
+import Profile from './Profile/profile';
+import Dashboard from './Layout/Dashboard/dashboard';
 import Sidebar from '../src/component/Sidebar/sidebar';
 
 import "./App.css";
@@ -33,20 +33,20 @@ function App() {
               <Sidebar />
             </div>
             <div className='otherPages'>
-              {/* <Routes>
+              <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
-              {/* <Route path="/word" element={<Create />} /> 
               <Route path="/login" element={<LoginForm />} />
               <Route path="/profile" element={<Profile />} />
               <Route exact path='/'>
-                {/* navigate("/login"); 
+                {/* navigate("/login"); */}
               </Route>
-            </Routes> */}
+            </Routes>
             </div>
           </div>
         </div>
       </BrowserRouter>
     );
+    isLogin = true;
   }
 }
 
