@@ -3,18 +3,10 @@ import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import "./loginForm.css"
 
-import {
-    BrowserRouter,
-    Route,
-    Routes,
-    Link,
-    NavLink,
-    Navigate
-  }from "react-router-dom";
 const Logo = require('./Logo/logo_truong.png'); 
 // const md5 = require("md5");
 function Login() {
-    console.log(Logo);
+
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [passwordError, setpasswordError] = useState("");
