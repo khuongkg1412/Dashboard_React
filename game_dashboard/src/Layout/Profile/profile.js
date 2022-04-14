@@ -1,21 +1,21 @@
 import axios from "axios";
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import avatar from '../../img/khuong.jpg';
 
 
 const AdminProfile = () => {
-    const[user, setUser] = useState();
-    function getUser(){
-        // ("http://localhost:3001/"+Email)
-        axios.get("http://localhost:3001/khuongnvce140417@fpt.edu.vn").then(res=>{
+    const [user, setUser] = useState();
+    async function getUser() {
+
+        await axios.get("http://localhost:3001/khuong@gmail.com").then(res => {
             setUser(res.data);
             console.log(res.data);
         });
-
+        // ("http://localhost:3001/"+Email)
     }
     getUser();
-    useEffect( () => {
-        // getUser();
+    useEffect(() => {
+        
         const avatarDiv = document.querySelector(".avatar-pic");
         const avat = document.querySelector("#avatar");
         const photoUpload = document.querySelector("#fileUpload");
@@ -41,7 +41,7 @@ const AdminProfile = () => {
             }
         });
     });
-
+    
     return (
 
         <div id="content">
@@ -97,7 +97,7 @@ const AdminProfile = () => {
 
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Status</strong></label><input className="form-control" type="text" id="txt_status"  readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Status</strong></label><input className="form-control" type="text" id="txt_status" readOnly="true" required /></div>
                                                 </div>
                                                 <div className="col">
                                                     <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Username</strong></label><input className="form-control" type="text" id="txt_user_name" value={user.Username} maxLength="20" readOnly="true" required /></div>
@@ -105,12 +105,12 @@ const AdminProfile = () => {
 
                                             </div>
                                             <div className="row">
-                                                <div className="col">
+                                                {/* <div className="col">
                                                     <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value={user.Email} maxLength="30" readOnly="true" required /></div>
-                                                </div>
-                                                <div className="col">
+                                                </div> */}
+                                                {/* <div className="col">
                                                     <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label><input className="form-control" type="text" id="txt_phone_number" value={user.Phone} maxLength="13" readOnly="true" required /></div>
-                                                </div>
+                                                </div> */}
                                             </div>
                                             <div className="row">
                                                 <div className="col">
