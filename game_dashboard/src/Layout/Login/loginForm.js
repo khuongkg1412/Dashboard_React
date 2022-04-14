@@ -13,7 +13,6 @@ import {
   }from "react-router-dom";
 const Logo = require('./Logo/logo_truong.png'); 
 // const md5 = require("md5");
-
 function Login() {
     console.log(Logo);
     const [password, setPassword] = useState("");
@@ -60,7 +59,7 @@ function Login() {
             if(respn.data === true){
                 alert("Loginsucess");
                 check = true;
-                //navigate("/dashboard");
+                navigate("/dashboard");
             }else{
                 alert("Wrong user name or password")
             }

@@ -1,9 +1,13 @@
 
 import avatar from '../../img/khuong.jpg';
+
+
+
+
 function dashboard() {
     return (
 
-        <div className="d-flex flex-column" id="content-wrapper">
+        
             <div id="content">
                 <nav className="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div className="container-fluid"><button className="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i className="fas fa-bars"></i></button>
@@ -145,7 +149,8 @@ function dashboard() {
                     </div>
                 </div>
             </div>
-        </div>
+        
+
 
 
     )

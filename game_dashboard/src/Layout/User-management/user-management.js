@@ -2,7 +2,7 @@ import avatar from '../../img/khuong.jpg';
 
 function userManagement() {
     return (
-        <div className="d-flex flex-column" id="content-wrapper">
+        
             <div id="content">
                 <nav className="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div className="container-fluid"><button className="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i className="fas fa-bars"></i></button>
@@ -53,49 +53,14 @@ function userManagement() {
                                             <td><input className="form-check-input" type="checkbox" id="formCheck" />
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td><img className="rounded-circle me-2" width="30" height="30" src={avatar} />Hai Long</td>
-                                            <td>Male</td>
-                                            <td>99</td>
-                                            <td>99</td>
-                                            <td>2022/02/26</td>
-                                            <td><input className="form-check-input" type="checkbox" id="formCheck" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><img className="rounded-circle me-2" width="30" height="30" src={avatar} />Huynh Duy</td>
-                                            <td>Male</td>
-                                            <td>99</td>
-                                            <td>99</td>
-                                            <td>2022/02/28</td>
-                                            <td><input className="form-check-input" type="checkbox" id="formCheck" /></td>
-                                        </tr>
-
                                     </tbody>
                                 </table>
-                            </div>
-                            <div className="row">
-                                <nav className="d-lg-flex justify-content-lg-center dataTables_paginate paging_simple_numbers">
-                                    <ul className="pagination">
-                                        <li className="page-item disabled"><a className="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
-                                        <li className="page-item active"><a className="page-link" href="#">1</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                        <li className="page-item"><a className="page-link" aria-label="Next" href="#"><span
-                                            aria-hidden="true">»</span></a></li>
-                                    </ul>
-                                </nav>
-                            </div>
+                            </div>       
                         </div>
                     </div>
                 </div>
             </div>
-            <footer className="bg-white sticky-footer">
-                <div className="container my-auto">
-                    <div className="text-center my-auto copyright"><span>Copyright © LTD2K 2022</span></div>
-                </div>
-            </footer>
-        </div>
+        
     )
 }
 export default userManagement
