@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 
     res.status(404).send("No admin in list");
   } else {
-    
+
     data.forEach(element => {
       var admin = new AdminModel(
         element.data().Avatar,
@@ -25,11 +25,11 @@ router.get("/", async (req, res) => {
         element.data().Email,
         element.data().Phone,
         element.data().Status,
-        element.data().Password,
+        element.data().Password
       );
       arrayAdmin.push(admin);
-      
-    });console.log(arrayAdmin.length);
+
+    }); console.log(arrayAdmin.length);
   }
   res.send(arrayAdmin);
 });
@@ -69,6 +69,69 @@ router.put("/disable/:email", async (req, res) => {
         res.send(false);
       }
     });
+  } else {
+    res.send(false);
+  }
+});
+
+router.get("/adminProfile", async (req, res) => {
+  const emailget = req.session.userId;
+  var adminRes;
+  await AdminDB.where("Email", "==", emailget)
+    .get()
+    .then(function (querysnapshot) {
+      querysnapshot.forEach(function (doc) {
+        adminRes = doc.data();
+      });
+    });
+  res.send(adminRes);
+});
+//Profile
+router.get("/getAdmin/:email", async (req, res) => {
+  const emailget = req.params.email;//req.session.userId;
+  var adminRes;
+  await AdminDB.where("Email", "==", emailget)
+    .get()
+    .then(function (querysnapshot) {
+      querysnapshot.forEach(function (doc) {
+        adminRes = doc.data();
+      });
+    });
+  res.send(adminRes);
+});
+//Profile update
+router.put("/update/:email", async (req, res) => {
+
+  const emailget = req.params.email;//req.session.userId;
+  const dataupdate = req.body;
+  const reqDB = await AdminDB.where("Email", "==", emailget).get();
+  if (!reqDB.empty) {
+    await AdminDB.where("Email", "==", emailget)
+      .get()
+      .then(function (querysnapshot) {
+        querysnapshot.forEach(function (doc) {
+          doc.ref.update(dataupdate);
+        });
+      });
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+//change pass
+router.get("/changePassword/:email/:password", async (req, res) => {
+  const emailget = req.params.email;
+  const passwordget = req.params.password;
+  const data = await AdminDB.where("Email", "==", emailget).get();
+  if (!data.empty) {
+    await AdminDB.where("Email", "==", emailget)
+      .get()
+      .then(function (querysnapshot) {
+        querysnapshot.forEach(function (doc) {
+          doc.ref.update({ Password: passwordget });
+          res.send(true);
+        });
+      });
   } else {
     res.send(false);
   }

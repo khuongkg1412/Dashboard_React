@@ -4,6 +4,7 @@ import { Route, Routes, Link, BrowserRouter, Navigate, useNavigate } from "react
 // import { Chart } from 'chart.js';
 import LoginForm from './Layout/Login/loginForm';
 import Profile from './Layout/Profile/profile';
+import ProfileUpdate from './Layout/Profile/profileUpdateFrom';
 import Dashboard from './Layout/Dashboard/dashboard';
 import AdminM from './Layout/Admin-management/admin-management';
 import UserM from './Layout/User-management/user-management';
@@ -17,21 +18,22 @@ axios.defaults.withCredentials = true;
 
 function App() {
 
-  // var checkSession;
-  // var CheckSession = async () => {
-  //   await axios.get("http://localhost:3001/get_session").then(async (respn) => {
-  //     console.log("/////////   " + respn.data);
-  //     if (respn.data === true) {
-  //       checkSession = true;
-  //     } else {
-  //       checkSession = false;
-  //     }
-  //   });
-  // };
+  let checkSession;
+   function GetSession() {
+     axios.get('http://localhost:3001/get_session').then(resp => {
+      if (resp.data == true) {
+        //alert("Have session");
+        checkSession = true;
+      } else {
+        //alert("Not Have session");
+        checkSession = false;
+      }
+    })
+  }
 
-  // useEffect(async () => {
-  //   await CheckSession();
-  // });
+  useEffect(() => {
+    GetSession();
+  }, [])
 
   return (
     <BrowserRouter>
@@ -44,6 +46,7 @@ function App() {
               {/* Khi khop path thi render element mong muon */}
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/changePass" element={<ProfileUpdate />} />
               <Route path="/userManagement" element={<UserM />} />
               <Route path="/adminManagement" element={<AdminM />} />
               <Route path="/" element={<LoginForm />} />
