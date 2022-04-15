@@ -119,7 +119,7 @@ router.put("/update/:email", async (req, res) => {
   }
 });
 //change pass
-router.get("/changePassword/:email/:password", async (req, res) => {
+router.put("/changePassword/:email/:password", async (req, res) => {
   const emailget = req.params.email;
   const passwordget = req.params.password;
   const data = await AdminDB.where("Email", "==", emailget).get();
