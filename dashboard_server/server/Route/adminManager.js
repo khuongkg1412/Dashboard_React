@@ -36,4 +36,49 @@ router.put("/disable", async(req, res) => {
   
 })
 
+router.get("/adminProfile", async (req, res) => {
+  const emailget = req.session.userId;
+  var adminRes;
+  await AdminDB.where("Email", "==", emailget)
+    .get()
+    .then(function (querysnapshot) {
+      querysnapshot.forEach(function (doc) {
+        adminRes = doc.data();
+      });
+    });
+  res.send(adminRes);
+});
+//Profile
+router.get("/getAdmin/:email", async (req, res) => {
+  const emailget = req.params.email;
+  var adminRes;
+  await AdminDB.where("Email", "==", emailget)
+    .get()
+    .then(function (querysnapshot) {
+      querysnapshot.forEach(function (doc) {
+        adminRes = doc.data();
+      });
+    });
+  res.send(adminRes);
+});
+
+router.put("/update/:email", async (req, res) => {
+
+  const emailget = req.params.email;
+  const dataupdate = req.body;
+  const reqDB = await AdminDB.where("Email", "==", emailget).get();
+  if (!reqDB.empty) {
+    await AdminDB.where("Email", "==", emailget)
+      .get()
+      .then(function (querysnapshot) {
+        querysnapshot.forEach(function (doc) {
+          doc.ref.update(dataupdate);
+        });
+      });
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+
 module.exports = router;
