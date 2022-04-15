@@ -97,7 +97,7 @@ const AdminProfile = () => {
 
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Status</strong></label><input className="form-control" type="text" id="txt_status" value={user.status == 1?"Enable":"Disable"} readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Status</strong></label><input className="form-control" type="text" id="txt_status" value={user.status == 1 ? "Enable" : "Disable"} readOnly="true" required /></div>
                                                 </div>
                                                 <div className="col">
 
@@ -109,12 +109,12 @@ const AdminProfile = () => {
 
                                             </div>
                                             <div className="row">
-                                                {/* <div className="col">
+                                                <div className="col">
                                                     <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value={user.Email} maxLength="30" readOnly="true" required /></div>
-                                                </div> */}
-                                                {/* <div className="col">
+                                                </div>
+                                                <div className="col">
                                                     <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label><input className="form-control" type="text" id="txt_phone_number" value={user.Phone} maxLength="13" readOnly="true" required /></div>
-                                                </div> */}
+                                                </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col">
