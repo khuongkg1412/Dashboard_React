@@ -76,7 +76,7 @@ const AdminProfile = () => {
                                             </div>
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><button className="btn btn-primary btn-sm" type="submit">Change Password</button></div>
+                                                    <div className="mb-3"><button className="btn btn-primary btn-md" type="submit">Change Password</button></div>
                                                 </div>
                                             </div>
                                         </form>

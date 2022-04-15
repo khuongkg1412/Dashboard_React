@@ -11,7 +11,7 @@ const AdminProfile = () => {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate('/changePass');
-       }
+    }
 
     const [admin, setAdmin] = useState(new AdminModel());
     useEffect(() => {
@@ -47,9 +47,15 @@ const AdminProfile = () => {
                 <div className="row mb-3">
                     <div className="col-lg-4">
                         <div className="card mb-3">
+                            <div className="card-header py-3">
+                                <p className="text-primary m-0 fw-bold text-center">Avatar</p>
+                            </div>
                             <div className="card-body text-center shadow"><img className="rounded-circle mb-3 mt-4" src={avatarBackground} width="160" height="160" />
-                                <div className="mb-3"><button className="btn btn-primary btn-sm"><input type={"file"} id="fileUpload" />Change
-                                    Photo</button></div>
+                                <div className="mb-3">
+                                    <div className="file btn btn-primary btn-md">
+                                        <input type={"file"} id="fileUpload" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -66,15 +72,15 @@ const AdminProfile = () => {
                                         <form onSubmit={(e) => handleSubmit(e)}>
 
                                             <div className="row">
-                                            <input className="form-control" type="hidden" id="txt_status" value={admin.Status == 1 ? "Enable" : "Disable"} readOnly="true" />
-                                                
+                                                <input className="form-control" type="hidden" id="txt_status" value={admin.Status == 1 ? "Enable" : "Disable"} readOnly="true" />
+
                                                 <div className="col">
                                                     <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value={admin.Email} readOnly={true} /></div>
                                                 </div>
 
                                             </div>
                                             <div className="row">
-                                            <div className="col">
+                                                <div className="col">
                                                     <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Nickname</strong></label><input className="form-control" type="text" id="txt_admin_username" defaultValue={admin.Username} /></div>
                                                 </div>
                                                 <div className="col">
@@ -83,11 +89,20 @@ const AdminProfile = () => {
                                             </div>
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><button className="btn btn-primary btn-sm" type="submit">Update Profile</button></div>
+                                                    <div className="mb-3">
+                                                        <button className="btn btn-primary btn-md" type="submit">
+                                                            <i className="fas fa-edit"></i><span>  Edit Profile</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                                 <div className="col">
-                                                    <div className="mb-3"><button className="btn btn-primary btn-sm" type="button" onClick={handleClick}>Change Password</button></div>
+                                                    <div className="mb-3">
+                                                        <button className="btn btn-primary btn-md" type="button" onClick={handleClick}>
+                                                            <i className="fas fa-lock"></i><span>  Change Password</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         </form>
                                     </div>
