@@ -47,7 +47,6 @@ function Login() {
             password: document.getElementById('Password').value,
         }
         
-        axios.get('http://localhost:3001/session');
         console.log(request.email + " " + request.password)
         axios.get('http://localhost:3001/login/'+request.email+'/'+ request.password, request)
         .then(respn => {

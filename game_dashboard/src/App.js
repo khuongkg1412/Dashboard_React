@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route, Routes, Link, BrowserRouter, Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, Link, BrowserRouter, Navigate, useNavigate } from "react-router-dom";
 
 // import { Chart } from 'chart.js';
 import LoginForm from './Layout/Login/loginForm';
@@ -12,8 +12,9 @@ import Sidebar from './component/Sidebar/sidebar';
 import Footer from './component/Footer/footer';
 import "./App.css";
 import axios from "axios";
-axios.defaults.withCredentials = true;
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
+axios.defaults.withCredentials = true;
 
 function App() {
 
