@@ -7,41 +7,41 @@ const AdminProfile = () => {
     const [user, setUser] = useState();
     async function getUser() {
 
-        await axios.get("http://localhost:3001/khuong@gmail.com").then(res => {
+        await axios.get("http://localhost:3001/khuongnvce140417@fpt.edu.vn").then(res => {
             setUser(res.data);
             console.log(res.data);
         });
         // ("http://localhost:3001/"+Email)
     }
     getUser();
-    useEffect(() => {
-        
-        const avatarDiv = document.querySelector(".avatar-pic");
-        const avat = document.querySelector("#avatar");
-        const photoUpload = document.querySelector("#fileUpload");
-        const uploadFileBtn = document.querySelector("#btn_upload_img");
-        avatarDiv.addEventListener("mouseenter", function () {
-            uploadFileBtn.style.display = "block";
-        });
+    // useEffect(() => {
 
-        avatarDiv.addEventListener("mouseleave", function () {
-            uploadFileBtn.style.display = "none";
-        });
+    //     const avatarDiv = document.querySelector(".avatar-pic");
+    //     const avat = document.querySelector("#avatar");
+    //     const photoUpload = document.querySelector("#fileUpload");
+    //     const uploadFileBtn = document.querySelector("#btn_upload_img");
+    //     avatarDiv.addEventListener("mouseenter", function () {
+    //         uploadFileBtn.style.display = "block";
+    //     });
 
-        photoUpload.addEventListener("change", function () {
-            const chosenPhoto = this.files[0];
+    //     avatarDiv.addEventListener("mouseleave", function () {
+    //         uploadFileBtn.style.display = "none";
+    //     });
 
-            if (chosenPhoto) {
-                const photoReader = new FileReader();
+    //     photoUpload.addEventListener("change", function () {
+    //         const chosenPhoto = this.files[0];
 
-                photoReader.addEventListener("load", function () {
-                    avat.setAttribute("src", photoReader.result);
-                });
-                photoReader.readAsDataURL(chosenPhoto);
-            }
-        });
-    });
-    
+    //         if (chosenPhoto) {
+    //             const photoReader = new FileReader();
+
+    //             photoReader.addEventListener("load", function () {
+    //                 avat.setAttribute("src", photoReader.result);
+    //             });
+    //             photoReader.readAsDataURL(chosenPhoto);
+    //         }
+    //     });
+    // });
+
     return (
 
         <div id="content">
@@ -97,10 +97,14 @@ const AdminProfile = () => {
 
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Status</strong></label><input className="form-control" type="text" id="txt_status" readOnly="true" required /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Status</strong></label><input className="form-control" type="text" id="txt_status" value={user.status == 1?"Enable":"Disable"} readOnly="true" required /></div>
                                                 </div>
                                                 <div className="col">
+
+
+
                                                     <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Username</strong></label><input className="form-control" type="text" id="txt_user_name" value={user.Username} maxLength="20" readOnly="true" required /></div>
+
                                                 </div>
 
                                             </div>

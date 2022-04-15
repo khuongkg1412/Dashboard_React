@@ -40,11 +40,13 @@ router.get('/logout', async (req, res) => {
 
 
 //get session
-app.get('/get_session', (req, res) => {
-    session = req.session;
-    if (session.userid) {
+router.get('/get_session',(req,res) => {
+    session=req.session;
+    console.log("check_session");
+    console.log(session.userId);
+    if(session.userId){
         res.send(true);
-    } else {
+    }else{
         res.send(false);
     }
 });
