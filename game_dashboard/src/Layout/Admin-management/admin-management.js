@@ -5,23 +5,27 @@ import axios from 'axios'
 import React, { useState, useEffect, useCallback } from 'react'
 import Switch from "@mui/material/Switch"
 import FormControlLabel from "@mui/material/FormControlLabel"
+import { Card } from '@mui/material';
 
+import DataTable from 'react-data-table-component';
 
+import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
+import "../../App.css";
 
 const admimManagement = () => {
-    const [data, setData] = useState([]);
+    let [data, setData] = useState([]);
 
     async function getAdmin() {
         await axios.request("http://localhost:3001/adminManagement").then(response => {
-            console.log(response.data);
             setData(response.data)
         })
     }
-
+    console.log(data);
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
-        getAdmin()
-    }, []);
+        getAdmin();
+        console.log("asdnkjansdoan")
+    },[]);
 
     const changeStatus = useCallback((email, status) => {
         return async (e) => {
@@ -49,6 +53,45 @@ const admimManagement = () => {
         }
     });
 
+    const columns = [
+        {
+            name: "Avatar",
+            selector: (row) => row.Avatar,
+            center: true
+        },
+        {
+            name: "User name",
+            selector: (row) => row.Username,
+            sortable: true
+        },
+        {
+            name: "Email",
+            selector: (row) => row.Email,
+            sortable: true,
+            center: true
+        },
+        {
+            name: "Phone",
+            selector: (row) => row.Phone,
+            center: true
+        },
+        {
+            selector: (row) => row.Status,
+            cell: () => (
+                <div className="card-body">
+                    {
+                        data.Email == "khuongnvce140417@fpt.edu.vn" ? null
+                            : data.Status == 1 ?
+                                <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(data.Email, data.Status)} />} label={data.Status} />
+                                : <FormControlLabel control={<Switch onClick={changeStatus(data.Email, data.Status)} />} label={data.Status} />
+
+                    }
+                </div>
+            ),
+            center: true
+        }
+    ];
+
     return (
         <div id="content">
             <nav className="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -62,7 +105,7 @@ const admimManagement = () => {
                             <div className="nav-item dropdown no-arrow">
                                 <a id="dropdownMenuButton1" className="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="/profile">
                                     <span className="d-none d-lg-inline me-2 text-gray-600 small">Khuong Nguyen</span>
-                                    <img className="border rounded-circle img-profile" src={avatar} alt = "avatar"/>
+                                    <img className="border rounded-circle img-profile" src={avatar} alt="avatar" />
                                 </a>
                                 <div className="dropdown-menu shadow dropdown-menu-end animated--grow-in" aria-labelledby="dropdownMenuButton1">
                                     <a className="dropdown-item" href="/logout">
@@ -75,44 +118,17 @@ const admimManagement = () => {
                 </div>
             </nav>
             <div className="container-fluid">
-                <div className="card shadow">
-                    <div className="card-header py-3">
-                        <p className="text-primary m-0 fw-bold">Admin Information</p>
-                    </div>
-                    <div className="card-body">
-                        <div className="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                            <table className="table my-0" id="dataTable">
-                                <thead>
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                {data.length > 0 && (
-                                    <tbody>
-                                        {data.map(data => (
-                                            <tr>
-                                                <td><img className="rounded-circle me-2" width="30" height="30" src={avatar} alt="avatar" />{data.Username}</td>
-                                                <td>{data.Email}</td>
-                                                <td>{data.Phone}</td>
-                                                <td>
-                                                    {
-                                                        data.Status === 1 && <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(data.Email, data.Status)} />} label="Label" />
-                                                        || <FormControlLabel defaultChecked control={<Switch onClick={changeStatus(data.Email, data.Status)} />} label="Disabled" />
-                                                    }</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                )}
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <Card>
+                    <DataTable
+                        title="Admin Account"
+                        columns={columns}
+                        data={data}
+                        pagination
+                        selectableRows
+                    />
+                </Card>
             </div>
         </div>
-
-    )
-}
+    );
+};
 export default admimManagement;

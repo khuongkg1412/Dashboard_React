@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route, Routes, Link, BrowserRouter, Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, Link, BrowserRouter, Navigate, useNavigate } from "react-router-dom";
 
 // import { Chart } from 'chart.js';
 import LoginForm from './Layout/Login/loginForm';
@@ -11,27 +11,27 @@ import Sidebar from './component/Sidebar/sidebar';
 import Footer from './component/Footer/footer';
 import "./App.css";
 import axios from "axios";
-axios.defaults.withCredentials = true;
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
+axios.defaults.withCredentials = true;
 
 function App() {
 
-  let checkSession;
-  async function GetSession() {
-    await axios.get('http://localhost:3001/get_session').then(resp => {
-      if (resp.data === true) {
-        alert("Have session");
-        checkSession = true;
-      } else {
-        alert("Not Have session");
-        checkSession = false;
-      }
-    })
-  }
+  // var checkSession;
+  // var CheckSession = async () => {
+  //   await axios.get("http://localhost:3001/get_session").then(async (respn) => {
+  //     console.log("/////////   " + respn.data);
+  //     if (respn.data === true) {
+  //       checkSession = true;
+  //     } else {
+  //       checkSession = false;
+  //     }
+  //   });
+  // };
 
-  useEffect(() => {
-    GetSession();
-  }, [])
+  // useEffect(async () => {
+  //   await CheckSession();
+  // });
 
   return (
     <BrowserRouter>

@@ -17,23 +17,37 @@ router.get("/", async (req, res) => {
 
     res.status(404).send("No admin in list");
   } else {
-    console.log("lalalalala");
+    
     data.forEach(element => {
       var admin = new AdminModel(
         element.data().Avatar,
+        element.data().Username,
         element.data().Email,
         element.data().Phone,
-        element.data().Username,
-        element.data().status
+        element.data().Status
       );
       arrayAdmin.push(admin);
-    });
+      
+    });console.log(arrayAdmin.length);
   }
   res.send(arrayAdmin);
 });
 
-router.put("/disable", async(req, res) => {
-  
-})
+router.put("/enable/:email", async (req, res) => {
+  const emailget = req.params.email;
+  const reqDB = await AdminDB.where("Email", "==", emailget).get();
+  if (!reqDB.empty) {
+    await AdminDB.where("Email", "==", emailget)
+      .get()
+      .then(function (querysnapshot) {
+        querysnapshot.forEach(function (doc) {
+          doc.ref.update({ Status: 1 });
+          res.send(true);
+        });
+      });
+  } else {
+    res.send(false);
+  }
+});
 
 module.exports = router;
