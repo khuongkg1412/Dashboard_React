@@ -62,16 +62,16 @@ import { useNavigate } from "react-router-dom";
 
                                                 <div className="row">
                                                     <div className="col">
-                                                        <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Statsus</strong></label><input className="form-control" type="text" id="first_name" value={admin.Status == 1 ? "Enable" : "Disable"} name="first_name" /></div>
+                                                        <div className="mb-3"><label className="form-label" htmlFor="first_name"><strong>Statsus</strong></label><input className="form-control" type="text" id="first_name" value={admin.Status == 1 ? "Enable" : "Disable"}  readOnly="true" /></div>
                                                     </div>
                                                     <div className="col">
-                                                        <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Username</strong></label><input className="form-control" type="text" id="txt_admin_username" defaultValue={admin.Username} name="last_name" /></div>
+                                                        <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Username</strong></label><input className="form-control" type="text" id="txt_admin_username" defaultValue={admin.Username} /></div>
                                                     </div>
 
                                                 </div>
                                                 <div className="row">
                                                     <div className="col">
-                                                        <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="email" value={admin.Email} name="last_name" /></div>
+                                                        <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="email" value={admin.Email}  readOnly="true" /></div>
                                                     </div>
                                                     <div className="col">
                                                         <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label><input className="form-control" type="text" id="txt_admin_phone" defaultValue={admin.Phone} name="last_name" /></div>
