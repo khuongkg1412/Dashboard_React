@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyPaser = require('body-parser');
 const session = require('express-session');
+const cors = require("cors");
+
 
 var app = express();
 app.use(
@@ -14,7 +16,7 @@ app.use(
         saveUninitialized: true,
         cookie: {
             secure: false,
-            expires: 30 * 60 * 1000
+            expires: 10 * 60 * 1000
         }
     })
 );
@@ -32,11 +34,17 @@ var adminManagerRouter = require('./Route/adminManager');
 var userManagerRouter = require('./Route/userManager')
 
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Credentials",true);
     next();
 });
+
+app.use(cors({
+    origin:"http://localhost:3000",
+    methods:"PUT, GET, POST, DELETE, OPTIONS",
+}));
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, Link, BrowserRouter, Navigate } from "react-router-dom";
-// import { Chart } from 'chart.js';
 
+// import { Chart } from 'chart.js';
 import LoginForm from './Layout/Login/loginForm';
 import Profile from './Layout/Profile/profile';
 import UpdateProfile from './Layout/Profile/update_profile';
@@ -11,10 +11,29 @@ import UserM from './Layout/User-management/user-management';
 import Sidebar from './component/Sidebar/sidebar';
 import Footer from './component/Footer/footer';
 import "./App.css";
-
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 
 function App() {
+
+  let checkSession;
+  async function GetSession() {
+    await axios.get('http://localhost:3001/get_session').then(resp => {
+      if (resp.data === true) {
+        alert("Have session");
+        checkSession = true;
+      } else {
+        alert("Not Have session");
+        checkSession = false;
+      }
+    })
+  }
+
+  useEffect(() => {
+    GetSession();
+  }, [])
+
   return (
     <BrowserRouter>
       <div className="App" id="page-top">
