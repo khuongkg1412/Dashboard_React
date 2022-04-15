@@ -84,7 +84,7 @@ const admimManagement = () => {
                             <table className="table my-0" id="dataTable">
                                 <thead>
                                     <tr>
-                                        <th>Username</th>
+                                        <th>Nickname</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Status</th>

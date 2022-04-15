@@ -4,6 +4,7 @@ import { Route, Routes, Link, BrowserRouter, Navigate } from "react-router-dom";
 // import { Chart } from 'chart.js';
 import LoginForm from './Layout/Login/loginForm';
 import Profile from './Layout/Profile/profile';
+import ProfileUpdate from './Layout/Profile/profileUpdateFrom';
 import Dashboard from './Layout/Dashboard/dashboard';
 import AdminM from './Layout/Admin-management/admin-management';
 import UserM from './Layout/User-management/user-management';
@@ -44,6 +45,7 @@ function App() {
               {/* Khi khop path thi render element mong muon */}
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/changePass" element={<ProfileUpdate />} />
               <Route path="/userManagement" element={<UserM />} />
               <Route path="/adminManagement" element={<AdminM />} />
               <Route path="/" element={<LoginForm />} />

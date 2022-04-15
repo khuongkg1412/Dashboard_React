@@ -50,7 +50,7 @@ router.get("/adminProfile", async (req, res) => {
 });
 //Profile
 router.get("/getAdmin/:email", async (req, res) => {
-  const emailget = req.params.email;
+  const emailget = req.params.email;//req.session.userId;
   var adminRes;
   await AdminDB.where("Email", "==", emailget)
     .get()
@@ -61,10 +61,10 @@ router.get("/getAdmin/:email", async (req, res) => {
     });
   res.send(adminRes);
 });
-
+//Profile update
 router.put("/update/:email", async (req, res) => {
 
-  const emailget = req.params.email;
+  const emailget = req.params.email;//req.session.userId;
   const dataupdate = req.body;
   const reqDB = await AdminDB.where("Email", "==", emailget).get();
   if (!reqDB.empty) {
@@ -76,6 +76,24 @@ router.put("/update/:email", async (req, res) => {
         });
       });
     res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+//change pass
+router.get("/changePassword/:email/:password", async (req, res) => {
+  const emailget = req.params.email;
+  const passwordget = req.params.password;
+  const data = await AdminDB.where("Email", "==", emailget).get();
+  if (!data.empty) {
+    await AdminDB.where("Email", "==", emailget)
+      .get()
+      .then(function (querysnapshot) {
+        querysnapshot.forEach(function (doc) {
+          doc.ref.update({ Password: passwordget });
+          res.send(true);
+        });
+      });
   } else {
     res.send(false);
   }
