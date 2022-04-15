@@ -20,12 +20,13 @@ const admimManagement = () => {
             setData(response.data)
         })
     }
-    console.log(data);
+
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
         getAdmin();
-        console.log("asdnkjansdoan")
-    },[]);
+        console.log("asdnkjansdoan");
+        console.log(data);
+    }, []);
 
     const changeStatus = useCallback((email, status) => {
         return async (e) => {
@@ -57,12 +58,20 @@ const admimManagement = () => {
         {
             name: "Avatar",
             selector: (row) => row.Avatar,
+            cell: (row) => (
+                <div className="card-body text-center">
+                    {
+                        <img width= "40%" src= {row.Avatar} alt="display image" />
+                    }
+                </div>
+            ),
             center: true
         },
         {
             name: "User name",
             selector: (row) => row.Username,
-            sortable: true
+            sortable: true,
+            center: true
         },
         {
             name: "Email",
@@ -76,19 +85,21 @@ const admimManagement = () => {
             center: true
         },
         {
+            name: "Status",
             selector: (row) => row.Status,
-            cell: () => (
-                <div className="card-body">
+            cell: (row) => (
+                <div className="card-body text-center">
                     {
-                        data.Email == "khuongnvce140417@fpt.edu.vn" ? null
-                            : data.Status == 1 ?
-                                <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(data.Email, data.Status)} />} label={data.Status} />
-                                : <FormControlLabel control={<Switch onClick={changeStatus(data.Email, data.Status)} />} label={data.Status} />
+                        row.Email == "khuongnvce140417@fpt.edu.vn" && null
+                        || row.Status == 1 &&
+                        <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
+                        || <FormControlLabel control={<Switch onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />
 
                     }
                 </div>
             ),
             center: true
+
         }
     ];
 

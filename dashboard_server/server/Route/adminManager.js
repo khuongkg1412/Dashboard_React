@@ -50,4 +50,27 @@ router.put("/enable/:email", async (req, res) => {
   }
 });
 
+router.put("/disable/:email", async (req, res) => {
+  const emailget = req.params.email;
+  const reqDB = await AdminDB.where("Email", "==", emailget).get();
+  if (!reqDB.empty) {
+    reqDB.forEach((doc) => {
+      if (doc.data().Admin_Id != 1) {
+        AdminDB.where("Email", "==", emailget)
+          .get()
+          .then(function (querysnapshot) {
+            querysnapshot.forEach(function (doc) {
+              doc.ref.update({ Status: 0 });
+              res.send(true);
+            });
+          });
+      } else {
+        res.send(false);
+      }
+    });
+  } else {
+    res.send(false);
+  }
+});
+
 module.exports = router;
