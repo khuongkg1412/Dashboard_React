@@ -1,11 +1,11 @@
-class adminInfor{
-    constructor(Avatar, Email,Password, Phone, Username, Status) {
+class adminInfor {
+    constructor(Avatar, Username, Email, Phone, Status, Password) {
         this.Avatar = Avatar;
-        this.Email = Email;
-        this.Password = Password;
-        this.Phone = Phone;
         this.Username = Username;
+        this.Email = Email;
+        this.Phone = Phone;
         this.Status = Status;
+        this.Password = Password;
     }
 }
 module.exports = adminInfor;

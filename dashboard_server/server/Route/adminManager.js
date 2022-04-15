@@ -17,18 +17,19 @@ router.get("/", async (req, res) => {
 
     res.status(404).send("No admin in list");
   } else {
-    
+
     data.forEach(element => {
       var admin = new AdminModel(
         element.data().Avatar,
         element.data().Username,
         element.data().Email,
         element.data().Phone,
-        element.data().Status
+        element.data().Status,
+        element.data().Password
       );
       arrayAdmin.push(admin);
-      
-    });console.log(arrayAdmin.length);
+
+    }); console.log(arrayAdmin.length);
   }
   res.send(arrayAdmin);
 });
