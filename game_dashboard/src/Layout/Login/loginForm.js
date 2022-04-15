@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import "./loginForm.css"
-
-const Logo = require('./Logo/logo_truong.png'); 
+import md5 from "md5";
+const Logo = require('./Logo/logo_truong.png');
 // const md5 = require("md5");
 
-axios.defaults.withCredentials=true;
+axios.defaults.withCredentials = true;
 function Login() {
 
     const [password, setPassword] = useState("");
@@ -46,23 +46,23 @@ function Login() {
             email: document.getElementById('Email').value,
             password: document.getElementById('Password').value,
         }
-        
+
         console.log(request.email + " " + request.password)
-        axios.get('http://localhost:3001/login/'+request.email+'/'+ request.password, request)
-        .then(respn => {
-            if(respn.data === true){
-                alert("Loginsucess");
-                check = true;
-                
-                navigate("/dashboard");
-            }else{
-                alert("Wrong user name or password")
-            }
-        })
-        .catch( err => {
-            console.log(err);
-        })
-        
+        axios.get('http://localhost:3001/login/' + request.email + '/' + md5(request.password), request)//md5(md5(request.password))
+            .then(respn => {
+                if (respn.data === true) {
+                    alert("Loginsucess");
+                    check = true;
+
+                    navigate("/dashboard");
+                } else {
+                    alert("Wrong user name or password")
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
     }
 
     return (
@@ -74,7 +74,7 @@ function Login() {
                             <div className="card-body p-0">
                                 <div className="row">
                                     <div className="col-lg-6 d-none d-lg-flex">
-                                        <div className="flex-grow-1 bg-login-image" id = "logo-game"></div>
+                                        <div className="flex-grow-1 bg-login-image" id="logo-game"></div>
                                     </div>
                                     <div className="col-lg-6">
                                         <div className="p-5">
