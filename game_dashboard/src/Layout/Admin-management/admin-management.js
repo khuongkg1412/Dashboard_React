@@ -61,7 +61,7 @@ const admimManagement = () => {
             cell: (row) => (
                 <div className="card-body text-center">
                     {
-                        <img width= "40%" src= {row.Avatar} alt="display image" />
+                        <img width= "80px" height= "80px" src= {row.Avatar} alt="display image" />
                     }
                 </div>
             ),
