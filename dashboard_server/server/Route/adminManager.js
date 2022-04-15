@@ -24,7 +24,8 @@ router.get("/", async (req, res) => {
         element.data().Username,
         element.data().Email,
         element.data().Phone,
-        element.data().Status
+        element.data().Status,
+        element.data().Password,
       );
       arrayAdmin.push(admin);
       
