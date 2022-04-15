@@ -18,13 +18,13 @@ axios.defaults.withCredentials = true;
 function App() {
 
   let checkSession;
-  async function GetSession() {
-    await axios.get('http://localhost:3001/get_session').then(resp => {
-      if (resp.data === true) {
-        alert("Have session");
+   function GetSession() {
+     axios.get('http://localhost:3001/get_session').then(resp => {
+      if (resp.data == true) {
+        //alert("Have session");
         checkSession = true;
       } else {
-        alert("Not Have session");
+        //alert("Not Have session");
         checkSession = false;
       }
     })

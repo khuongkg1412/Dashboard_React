@@ -69,7 +69,7 @@ const AdminProfile = () => {
                                             <input className="form-control" type="hidden" id="txt_status" value={admin.Status == 1 ? "Enable" : "Disable"} readOnly="true" />
                                                 
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value={admin.Email} readOnly="true" /></div>
+                                                    <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value={admin.Email} readOnly={true} /></div>
                                                 </div>
 
                                             </div>
