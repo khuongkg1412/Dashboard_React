@@ -5,6 +5,8 @@ import "./loginForm.css"
 
 const Logo = require('./Logo/logo_truong.png'); 
 // const md5 = require("md5");
+
+axios.defaults.withCredentials=true;
 function Login() {
 
     const [password, setPassword] = useState("");
@@ -44,13 +46,15 @@ function Login() {
             email: document.getElementById('Email').value,
             password: document.getElementById('Password').value,
         }
-    
+        
+        axios.get('http://localhost:3001/session');
         console.log(request.email + " " + request.password)
         axios.get('http://localhost:3001/login/'+request.email+'/'+ request.password, request)
         .then(respn => {
             if(respn.data === true){
                 alert("Loginsucess");
                 check = true;
+                
                 navigate("/dashboard");
             }else{
                 alert("Wrong user name or password")
@@ -59,6 +63,7 @@ function Login() {
         .catch( err => {
             console.log(err);
         })
+        
     }
 
     return (

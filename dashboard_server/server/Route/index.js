@@ -25,7 +25,7 @@ router.get('/logout', async (req,res) => {
 
 
 //get session
-app.get('/get_session',(req,res) => {
+router.get('/get_session',(req,res) => {
     session=req.session;
     if(session.userid){
         res.send(true);
