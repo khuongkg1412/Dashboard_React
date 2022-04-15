@@ -1,6 +1,11 @@
 import "../../../src/App.css";
 import gameLogo from '../../img/LTD2K.png';
-function sidebar() {
+import {useLocation} from 'react-router-dom'
+function Sidebar() {
+    let location = useLocation()
+
+    if (location.pathname === '/login') return null
+
     return (
         <nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div className="container-fluid d-flex flex-column p-0">
@@ -28,4 +33,4 @@ function sidebar() {
         </nav>
     )
 }
-export default sidebar
+export default Sidebar;

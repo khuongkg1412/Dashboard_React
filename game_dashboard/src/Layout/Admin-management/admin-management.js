@@ -12,20 +12,20 @@ import DataTable from 'react-data-table-component';
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 import "../../App.css";
 
-const admimManagement = () => {
+const AdmimManagement = () => {
     let [data, setData] = useState([]);
-
-    async function getAdmin() {
-        await axios.request("http://localhost:3001/adminManagement").then(response => {
-            setData(response.data)
-        })
-    }
+    const token = localStorage.getItem("current_Session");
 
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
+        
+        const getAdmin = async () => {
+            await axios.request("http://localhost:3001/adminManagement").then(response => {
+                setData(response.data)
+            })
+            console.log(data);
+        }
         getAdmin();
-        console.log("asdnkjansdoan");
-        console.log(data);
     }, []);
 
     const changeStatus = useCallback((email, status) => {
@@ -61,7 +61,7 @@ const admimManagement = () => {
             cell: (row) => (
                 <div className="card-body text-center">
                     {
-                        <img width= "80px" height= "80px" src= {row.Avatar} alt="display image" />
+                        <img width="80px" height="80px" src={row.Avatar} alt="display image" />
                     }
                 </div>
             ),
@@ -142,4 +142,4 @@ const admimManagement = () => {
         </div>
     );
 };
-export default admimManagement;
+export default AdmimManagement;

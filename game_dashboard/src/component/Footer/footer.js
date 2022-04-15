@@ -1,5 +1,10 @@
 import "../../../src/App.css";
-function footer() {
+import {useLocation} from 'react-router-dom'
+function Footer() {
+
+    let location = useLocation()
+
+    if (location.pathname === '/login') return null
     return (
         <footer className="bg-white sticky-footer">
             <div className="container my-auto">
@@ -9,4 +14,4 @@ function footer() {
     )
 
 }
-export default footer
+export default Footer

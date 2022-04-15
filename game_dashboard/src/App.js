@@ -17,24 +17,6 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 axios.defaults.withCredentials = true;
 
 function App() {
-
-  let checkSession;
-   function GetSession() {
-     axios.get('http://localhost:3001/get_session').then(resp => {
-      if (resp.data == true) {
-        //alert("Have session");
-        checkSession = true;
-      } else {
-        //alert("Not Have session");
-        checkSession = false;
-      }
-    })
-  }
-
-  useEffect(() => {
-    GetSession();
-  }, [])
-
   return (
     <BrowserRouter>
       <div className="App" id="page-top">
@@ -49,7 +31,7 @@ function App() {
               <Route path="/changePass" element={<ProfileUpdate />} />
               <Route path="/userManagement" element={<UserM />} />
               <Route path="/adminManagement" element={<AdminM />} />
-              <Route path="/" element={<LoginForm />} />
+              <Route path="/login" element={<LoginForm />} />
               <Route exact path='/' element={<Navigate to="/login" />} />
             </Routes>
 

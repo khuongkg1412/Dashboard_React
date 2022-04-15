@@ -1,12 +1,13 @@
 import axios from "axios";
-import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import { useNavigate} from "react-router-dom";
 import "./loginForm.css"
 import md5 from "md5";
 const Logo = require('./Logo/logo_truong.png');
 // const md5 = require("md5");
 
 axios.defaults.withCredentials = true;
+
 function Login() {
 
     const [password, setPassword] = useState("");
@@ -41,19 +42,20 @@ function Login() {
 
     function Login(e, navigate) {
         e.preventDefault();
-        var check = false;
+
+
         let request = {
             email: document.getElementById('Email').value,
             password: document.getElementById('Password').value,
         }
 
-        console.log(request.email + " " + request.password)
+
         axios.get('http://localhost:3001/login/' + request.email + '/' + md5(request.password), request)//md5(md5(request.password))
             .then(respn => {
                 if (respn.data === true) {
-                    alert("Loginsucess");
-                    check = true;
-
+                    alert(respn.data);
+            
+                    localStorage.setItem("curent_Session", respn.data);
                     navigate("/dashboard");
                 } else {
                     alert("Wrong user name or password")
@@ -62,8 +64,12 @@ function Login() {
             .catch(err => {
                 console.log(err);
             })
-
     }
+
+    useEffect(() => {
+        var check = localStorage.getItem("curent_Session");
+        if(check) navigate("/dashboard");
+    }, []);
 
     return (
         <div className="bg-gradient-primary">
