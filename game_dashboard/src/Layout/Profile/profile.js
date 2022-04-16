@@ -15,7 +15,7 @@ const AdminProfile = () => {
 
     const [admin, setAdmin] = useState(new AdminModel());
     useEffect(() => {
-        axios.get("http://localhost:3001/adminManagement/getAdmin/khuongnvce140417@fpt.edu.vn").then((res) => {
+        axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
             setAdmin(res.data);
         });
     }, []);
@@ -121,16 +121,16 @@ const AdminProfile = () => {
             e.target.elements;
         var adminUpdate = new AdminModel(
             admin.Avatar,
-            admin.Email,
-            admin.Password,
-            txt_admin_phone.value,
             txt_admin_username.value,
-            admin.Status
+            admin.Email,
+            txt_admin_phone.value,
+            admin.Status, 
+            admin.Password
         );
         console.log(adminUpdate);
         axios
             .put(
-                "http://localhost:3001/adminManagement/update/" + admin.Email,
+                "http://localhost:3001/adminManagement/update/" + localStorage.getItem("curent_Session"),
                 adminUpdate
             )
             .then((res) => {

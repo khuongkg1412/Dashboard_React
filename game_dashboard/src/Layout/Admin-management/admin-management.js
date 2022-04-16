@@ -23,11 +23,11 @@ const AdmimManagement = () => {
     }
 
     let [data, setData] = useState([]);
-
+    var check = localStorage.getItem("curent_Session");
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
-        var check = localStorage.getItem("curent_Session");
-        if (!check) navigate("/login");
+        
+        if (check == null) navigate("/login");
         else {
             const getAdmin = async () => {
                 await axios.request("http://localhost:3001/adminManagement").then(response => {
@@ -72,6 +72,8 @@ const AdmimManagement = () => {
         navigate("/login");
     }
 
+
+
     const columns = [
         {
             name: "Avatar",
@@ -108,11 +110,11 @@ const AdmimManagement = () => {
             cell: (row) => (
                 <div className="card-body text-center">
                     {
-                        row.Email == "khuongnvce140417@fpt.edu.vn" && null
-                        || row.Status == 1 &&
-                        <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
-                        || <FormControlLabel control={<Switch onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />
-
+                        check == "khuongnvce140417@fpt.edu.vn"
+                            ? (row.Status == 1
+                                ? <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
+                                : <FormControlLabel control={<Switch onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
+                            : null
                     }
                 </div>
             ),
