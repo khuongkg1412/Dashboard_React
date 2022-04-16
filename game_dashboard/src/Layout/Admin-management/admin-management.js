@@ -13,7 +13,7 @@ import DataTable from 'react-data-table-component';
 
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 import "../../App.css";
-
+import AdminModel from "../../Model/admin";
 
 
 const AdmimManagement = () => {
@@ -23,19 +23,24 @@ const AdmimManagement = () => {
     }
 
     let [data, setData] = useState([]);
+    const [admin, setAdmin] = useState(new AdminModel());
     var check = localStorage.getItem("curent_Session");
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
-        
-        if (check == null) navigate("/login");
+
+        if (check == "no") navigate("/login");
         else {
             const getAdmin = async () => {
                 await axios.request("http://localhost:3001/adminManagement").then(response => {
                     setData(response.data)
                 })
-                console.log(data);
+                axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
+                    setAdmin(res.data);
+                });
             }
             getAdmin();
+
+
         }
     }, []);
 
@@ -111,7 +116,7 @@ const AdmimManagement = () => {
                 <div className="card-body text-center">
                     {
                         check == "khuongnvce140417@fpt.edu.vn"
-                            ? (row.Status == 1
+                            ? (row.Status === 1
                                 ? <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
                                 : <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
                             : null
@@ -135,7 +140,7 @@ const AdmimManagement = () => {
                         <Dropdown className="nav-item">
                             <Dropdown.Toggle variant="" id="dropdown-basic" className="nav-link">
                                 <span className="d-none d-lg-inline me-2 text-gray-600 small">Khuong Nguyen</span>
-                                <img className="border rounded-circle img-profile" src={avatar} alt="avatar" />
+                                <img className="border rounded-circle img-profile" src={admin.Avatar} alt="avatar" />
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
@@ -167,11 +172,9 @@ const AdmimManagement = () => {
                     </div>
 
                     <DataTable
-                        // title="Admin Account"
                         columns={columns}
                         data={data}
                         pagination
-                        selectableRows
                     />
 
                 </Card>
