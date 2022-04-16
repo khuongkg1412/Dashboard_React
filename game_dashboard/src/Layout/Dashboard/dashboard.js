@@ -1,14 +1,21 @@
-import avatar from '../../img/khuong.jpg';
 import { Dropdown } from 'react-bootstrap';
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
-
+import React, { useState, useEffect } from "react";
+import AdminModel from "../../Model/admin";
 
 
 
 function Dashboard() {
     var navigate = useNavigate();
 
+
+    const [admin, setAdmin] = useState(new AdminModel());
+    useEffect(() => {
+        axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
+            setAdmin(res.data);
+        });
+    }, []);
     async function Logout(e, navigate) {
         e.preventDefault();
         await axios.get('http://localhost:3001/logout')
@@ -27,8 +34,8 @@ function Dashboard() {
                         <div className="d-none d-sm-block topbar-divider"></div>
                         <Dropdown className="nav-item">
                             <Dropdown.Toggle variant="" id="dropdown-basic" className="nav-link">
-                                <span className="d-none d-lg-inline me-2 text-gray-600 small">Khuong Nguyen</span>
-                                <img className="border rounded-circle img-profile" src={avatar} alt="avatar" />
+                                <span className="d-none d-lg-inline me-2 text-gray-600 small">{admin.Username}</span>
+                                <img className="border rounded-circle img-profile" src={admin.Avatar} alt="avatar" />
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>

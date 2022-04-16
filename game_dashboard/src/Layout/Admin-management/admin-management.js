@@ -120,7 +120,7 @@ const AdmimManagement = () => {
                         check == "khuongnvce140417@fpt.edu.vn"
                             ? (row.Status === 1
                                 ? <FormControlLabel control={<Switch checked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
-                                : <FormControlLabel control={<Switch onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
+                                : <FormControlLabel control={<Switch  onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
                             : null
                     }
                 </div>
@@ -141,7 +141,7 @@ const AdmimManagement = () => {
                         <div className="d-none d-sm-block topbar-divider"></div>
                         <Dropdown className="nav-item">
                             <Dropdown.Toggle variant="" id="dropdown-basic" className="nav-link">
-                                <span className="d-none d-lg-inline me-2 text-gray-600 small">Khuong Nguyen</span>
+                                <span className="d-none d-lg-inline me-2 text-gray-600 small">{admin.Username}</span>
                                 <img className="border rounded-circle img-profile" src={admin.Avatar} alt="avatar" />
                             </Dropdown.Toggle>
 
