@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import avatar from '../../img/khuong.jpg';
-
 import axios from 'axios'
 import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from "react-router-dom";
@@ -22,25 +20,27 @@ const AdmimManagement = () => {
         navigate('/admin-add');
     }
 
-    let [data, setData] = useState([]);
+    const [Q, setQ] = useState("");
+    const [data, setData] = useState([]);
     const [admin, setAdmin] = useState(new AdminModel());
     var check = localStorage.getItem("curent_Session");
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
 
-        if (check == "no") navigate("/login");
+        if (check == "no" || check == null) navigate("/login");
         else {
-            const getAdmin = async () => {
+            const getAdmins = async () => {
                 await axios.request("http://localhost:3001/adminManagement").then(response => {
                     setData(response.data)
                 })
-                axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
+            }
+            const getAdmin = async () => {
+                await axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
                     setAdmin(res.data);
                 });
             }
+            getAdmins();
             getAdmin();
-
-
         }
     }, []);
 
@@ -77,7 +77,9 @@ const AdmimManagement = () => {
         navigate("/login");
     }
 
-
+    function search(rows) {
+        return rows.filter((row) => row.Username.toLowerCase().indexOf (Q) > -1);
+    }
 
     const columns = [
         {
@@ -117,8 +119,8 @@ const AdmimManagement = () => {
                     {
                         check == "khuongnvce140417@fpt.edu.vn"
                             ? (row.Status === 1
-                                ? <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
-                                : <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
+                                ? <FormControlLabel control={<Switch checked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
+                                : <FormControlLabel control={<Switch onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
                             : null
                     }
                 </div>
@@ -163,8 +165,8 @@ const AdmimManagement = () => {
                             </div>
                             <div class="col-md-6">
                                 <div class="text-lg-end dataTables_filter" id="dataTable_filter">
-                                    <label class="form-label"><input type="search" class="form-control form-control-sm"
-                                        aria-controls="dataTable" placeholder="Search" />
+                                    <label class="form-label"><input onChange={(e) => setQ(e.target.value)} type="text" class="form-control form-control-sm"
+                                        aria-controls="dataTable" placeholder="Search" value={Q}/>
                                     </label>
                                 </div>
                             </div>
@@ -173,7 +175,7 @@ const AdmimManagement = () => {
 
                     <DataTable
                         columns={columns}
-                        data={data}
+                        data={search(data)}
                         pagination
                     />
 
