@@ -28,7 +28,7 @@ const AdmimManagement = () => {
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
 
-        if (check == null) navigate("/login");
+        if (check == "no") navigate("/login");
         else {
             const getAdmin = async () => {
                 await axios.request("http://localhost:3001/adminManagement").then(response => {
@@ -116,9 +116,9 @@ const AdmimManagement = () => {
                 <div className="card-body text-center">
                     {
                         check == "khuongnvce140417@fpt.edu.vn"
-                            ? (row.Status == 1
+                            ? (row.Status === 1
                                 ? <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
-                                : <FormControlLabel control={<Switch onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
+                                : <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
                             : null
                     }
                 </div>
@@ -172,11 +172,9 @@ const AdmimManagement = () => {
                     </div>
 
                     <DataTable
-                        // title="Admin Account"
                         columns={columns}
                         data={data}
                         pagination
-                        selectableRows
                     />
 
                 </Card>
