@@ -16,10 +16,7 @@ function dashboard() {
                         </div>
                         <ul className="navbar-nav flex-nowrap ms-auto">
 
-                            <li className="nav-item align-self-center">
-                                <a className="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i
-                                    className="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate Report</a>
-                            </li>
+                            
                             <div className="d-none d-sm-block topbar-divider"></div>
                             <li className="nav-item dropdown no-arrow">
                                 <div className="nav-item dropdown no-arrow"><a className="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
