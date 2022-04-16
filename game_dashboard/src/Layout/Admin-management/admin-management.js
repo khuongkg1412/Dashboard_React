@@ -3,15 +3,18 @@ import avatar from '../../img/khuong.jpg';
 
 import axios from 'axios'
 import React, { useState, useEffect, useCallback } from 'react'
+import { useNavigate } from "react-router-dom";
+import { Dropdown } from 'react-bootstrap';
 import Switch from "@mui/material/Switch"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import { Card } from '@mui/material';
-import { useNavigate } from "react-router-dom";
 
 import DataTable from 'react-data-table-component';
 
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 import "../../App.css";
+
+
 
 const AdmimManagement = () => {
     const navigate = useNavigate();
@@ -20,18 +23,20 @@ const AdmimManagement = () => {
     }
 
     let [data, setData] = useState([]);
-    const token = localStorage.getItem("current_Session");
 
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
-
-        const getAdmin = async () => {
-            await axios.request("http://localhost:3001/adminManagement").then(response => {
-                setData(response.data)
-            })
-            console.log(data);
+        var check = localStorage.getItem("curent_Session");
+        if (!check) navigate("/login");
+        else {
+            const getAdmin = async () => {
+                await axios.request("http://localhost:3001/adminManagement").then(response => {
+                    setData(response.data)
+                })
+                console.log(data);
+            }
+            getAdmin();
         }
-        getAdmin();
     }, []);
 
     const changeStatus = useCallback((email, status) => {
@@ -59,6 +64,13 @@ const AdmimManagement = () => {
             }
         }
     });
+
+    async function Logout(e, navigate) {
+        e.preventDefault();
+        await axios.get('http://localhost:3001/logout')
+        localStorage.clear();
+        navigate("/login");
+    }
 
     const columns = [
         {
@@ -118,19 +130,18 @@ const AdmimManagement = () => {
                     </div>
                     <ul className="navbar-nav flex-nowrap ms-auto">
                         <div className="d-none d-sm-block topbar-divider"></div>
-                        <li className="nav-item dropdown no-arrow">
-                            <div className="nav-item dropdown no-arrow">
-                                <a id="dropdownMenuButton1" className="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="/profile">
-                                    <span className="d-none d-lg-inline me-2 text-gray-600 small">Khuong Nguyen</span>
-                                    <img className="border rounded-circle img-profile" src={avatar} alt="avatar" />
-                                </a>
-                                <div className="dropdown-menu shadow dropdown-menu-end animated--grow-in" aria-labelledby="dropdownMenuButton1">
-                                    <a className="dropdown-item" href="/logout">
-                                        <i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>Logout
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
+                        <Dropdown className="nav-item">
+                            <Dropdown.Toggle variant="" id="dropdown-basic" className="nav-link">
+                                <span className="d-none d-lg-inline me-2 text-gray-600 small">Khuong Nguyen</span>
+                                <img className="border rounded-circle img-profile" src={avatar} alt="avatar" />
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#" onClick={(e) => Logout(e, navigate)}>
+                                    <i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400" ></i>Logout
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </ul>
                 </div>
             </nav>
