@@ -1,17 +1,19 @@
-import avatarBackground from '../../img/khuong.jpg';
-// import "./profile.css";
-// import avatarBackground from "../../img/avatar.png";
+import { Dropdown } from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AdminModel from "../../Model/admin";
-import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 
 const AdminProfile = () => {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate('/changePass');
     }
+    const reloadPage = () => {
+        navigate(0);
+    }
+   
 
     const [admin, setAdmin] = useState(new AdminModel());
     useEffect(() => {
@@ -19,6 +21,12 @@ const AdminProfile = () => {
             setAdmin(res.data);
         });
     }, []);
+    async function Logout(e, navigate) {
+        e.preventDefault();
+        await axios.get('http://localhost:3001/logout')
+        localStorage.clear();
+        navigate("/login");
+    }
     return (
         <div id="content">
             <nav className="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -28,17 +36,18 @@ const AdminProfile = () => {
                     </div>
                     <ul className="navbar-nav flex-nowrap ms-auto">
                         <div className="d-none d-sm-block topbar-divider"></div>
-                        <li className="nav-item dropdown no-arrow">
-                            <div className="nav-item dropdown no-arrow"><a className="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
-                                className="d-none d-lg-inline me-2 text-gray-600 small">{admin.Username}</span>
-                                <img className="border rounded-circle img-profile"
-                                    src={avatarBackground} /></a>
-                                <div className="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-                                    <a className="dropdown-item" href="#"><i
-                                        className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
-                                </div>
-                            </div>
-                        </li>
+                        <Dropdown className="nav-item">
+                            <Dropdown.Toggle variant="" id="dropdown-basic" className="nav-link">
+                                <span className="d-none d-lg-inline me-2 text-gray-600 small">{admin.Username}</span>
+                                <img className="border rounded-circle img-profile" src={admin.Avatar} alt="avatar" />
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#" onClick={(e) => Logout(e, navigate)}>
+                                    <i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400" ></i>Logout
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </ul>
                 </div>
             </nav>
@@ -50,7 +59,7 @@ const AdminProfile = () => {
                             <div className="card-header py-3">
                                 <p className="text-primary m-0 fw-bold text-center">Avatar</p>
                             </div>
-                            <div className="card-body text-center shadow"><img className="rounded-circle mb-3 mt-4" src={avatarBackground} width="160" height="160" />
+                            <div className="card-body text-center shadow"><img className="rounded-circle mb-3 mt-4" src={admin.Avatar} width="160" height="160" />
                                 <div className="mb-3">
                                     <div className="file btn btn-primary btn-md">
                                         <input type={"file"} id="fileUpload" />
@@ -102,7 +111,6 @@ const AdminProfile = () => {
                                                         </button>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </form>
                                     </div>
@@ -124,7 +132,7 @@ const AdminProfile = () => {
             txt_admin_username.value,
             admin.Email,
             txt_admin_phone.value,
-            admin.Status, 
+            admin.Status,
             admin.Password
         );
         console.log(adminUpdate);
@@ -134,8 +142,11 @@ const AdminProfile = () => {
                 adminUpdate
             )
             .then((res) => {
-                alert("Update success");
+                alert("Update successfully!");
+                reloadPage();
+                
             });
+            
     }
 
 };
