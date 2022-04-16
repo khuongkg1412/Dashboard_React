@@ -150,17 +150,15 @@ const AdminProfile = () => {
             isvalidRePassword = checkRePassword(newpass, repass);
 
         if (isvalidNewPass && isvalidOldPass && isvalidRePassword) {
-            console.log("nguuuuuuuuuuuuuu");
+            console.log("Check valid!");
             axios
                 .put(
                     "http://localhost:3001/adminManagement/changePassword/" + admin.Email + "/" + md5(repass)
                 )
                 .then((res) => {
-                    alert("Change password success!");
+                    alert("Change password successfully!");
                 });
         }
-
-
     }
 
 };
