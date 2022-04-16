@@ -9,7 +9,7 @@ app.use(cors());
 const AdminDB = db.collection("Admin");
 const AdminModel = require("../Model/admin");
 
-/* GET users listing. */
+/* GET admins listing. */
 router.get("/", async (req, res) => {
   const data = await AdminDB.get();
   const arrayAdmin = [];
@@ -32,6 +32,13 @@ router.get("/", async (req, res) => {
     }); console.log(arrayAdmin.length);
   }
   res.send(arrayAdmin);
+});
+
+//Add Admin
+router.put("/add", async (req, res) => {
+  var data = req.body;
+  await AdminDB.doc().set(data);
+  res.send(true);
 });
 
 router.put("/enable/:email", async (req, res) => {
@@ -88,6 +95,9 @@ router.get("/getAdmin/:email", async (req, res) => {
     });
   res.send(adminRes);
 });
+
+
+
 //Profile update
 router.put("/update/:email", async (req, res) => {
 
