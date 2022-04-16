@@ -113,7 +113,7 @@ const AdmimManagement = () => {
                         check == "khuongnvce140417@fpt.edu.vn"
                             ? (row.Status == 1
                                 ? <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
-                                : <FormControlLabel control={<Switch onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
+                                : <FormControlLabel control={<Switch defaultChecked onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
                             : null
                     }
                 </div>
