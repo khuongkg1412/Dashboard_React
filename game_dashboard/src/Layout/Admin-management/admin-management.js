@@ -4,7 +4,7 @@ import avatar from '../../img/khuong.jpg';
 import axios from 'axios'
 import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from "react-router-dom";
-
+import { Dropdown } from 'react-bootstrap';
 import Switch from "@mui/material/Switch"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import { Card } from '@mui/material';
@@ -14,8 +14,7 @@ import DataTable from 'react-data-table-component';
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 import "../../App.css";
 
-import { Dropdown } from 'react-bootstrap';
-//import { MenuItem } from 'react-bootstrap';
+
 
 const AdmimManagement = () => {
     const navigate = useNavigate();
