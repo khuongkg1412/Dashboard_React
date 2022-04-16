@@ -52,7 +52,7 @@ function Login() {
 
         axios.get('http://localhost:3001/login/' + request.email + '/' + md5(request.password), request)//md5(md5(request.password))
             .then(respn => {
-                if (respn.data === true) {
+                if (respn.data != "no") {
                     alert(respn.data);
             
                     localStorage.setItem("curent_Session", respn.data);
@@ -68,7 +68,7 @@ function Login() {
 
     useEffect(() => {
         var check = localStorage.getItem("curent_Session");
-        if(check) navigate("/dashboard");
+        if(check != null) navigate("/dashboard");
     }, []);
 
     return (

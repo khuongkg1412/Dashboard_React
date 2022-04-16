@@ -27,10 +27,10 @@ router.get('/logout', async (req,res) => {
 //get session
 router.get('/get_session',(req,res) => {
     session=req.session;
-    if(session.userid){
-        res.send(true);
+    if(session.userid != "no"){
+        res.send(session.userid);
     }else{
-        res.send(false);
+        res.send("no");
     }
 });
 
@@ -46,16 +46,16 @@ router.get("/login/:username/:password", async (req, res) => {
             
             userSession=req.session;
             userSession.userId = req.params.username;
-            console.log(req.session);
+            //console.log(req.session);
             console.log(userSession);
-            res.send(true);
+            res.send(userSession.userId);
            }else{
-            res.send(false);
+            res.send("no");
            }
           });
         
     }else{
-        res.send(false);
+        res.send(null);
     }
 });
 

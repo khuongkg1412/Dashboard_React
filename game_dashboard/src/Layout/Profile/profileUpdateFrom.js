@@ -14,7 +14,7 @@ const AdminProfile = () => {
     const [rePassError, setRePassError] = useState("");
     const [admin, setAdmin] = useState(new AdminModel());
     useEffect(() => {
-        axios.get("http://localhost:3001/adminManagement/getAdmin/khuongnvce140417@fpt.edu.vn").then((res) => {
+        axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
             setAdmin(res.data);
         });
     }, []);
@@ -153,7 +153,7 @@ const AdminProfile = () => {
             console.log("Check valid!");
             axios
                 .put(
-                    "http://localhost:3001/adminManagement/changePassword/" + admin.Email + "/" + md5(repass)
+                    "http://localhost:3001/adminManagement/changePassword/" + localStorage.getItem("curent_Session") + "/" + md5(repass)
                 )
                 .then((res) => {
                     alert("Change password successfully!");
