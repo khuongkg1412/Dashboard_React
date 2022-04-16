@@ -21,12 +21,14 @@ const AdminProfile = () => {
             setAdmin(res.data);
         });
     }, []);
+
     async function Logout(e, navigate) {
         e.preventDefault();
         await axios.get('http://localhost:3001/logout')
         localStorage.clear();
         navigate("/login");
     }
+    
     return (
         <div id="content">
             <nav className="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -59,7 +61,7 @@ const AdminProfile = () => {
                             <div className="card-header py-3">
                                 <p className="text-primary m-0 fw-bold text-center">Avatar</p>
                             </div>
-                            <div className="card-body text-center shadow"><img className="rounded-circle mb-3 mt-4" src={admin.Avatar} width="160" height="160" />
+                            <div className="card-body text-center shadow"><img className="rounded-circle mb-3 mt-4" src={admin.Avatar} width="160" height="160" alt=''/>
                                 <div className="mb-3">
                                     <div className="file btn btn-primary btn-md">
                                         <input type={"file"} id="fileUpload" />
@@ -81,7 +83,7 @@ const AdminProfile = () => {
                                         <form onSubmit={(e) => handleSubmit(e)}>
 
                                             <div className="row">
-                                                <input className="form-control" type="hidden" id="txt_status" value={admin.Status == 1 ? "Enable" : "Disable"} readOnly="true" />
+                                                <input className="form-control" type="hidden" id="txt_status" value={admin.Status === 1 ? "Enable" : "Disable"} readOnly="true" />
 
                                                 <div className="col">
                                                     <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value={admin.Email} readOnly={true} /></div>
