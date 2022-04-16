@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Switch from "@mui/material/Switch"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import { Card } from '@mui/material';
+
 import DataTable from 'react-data-table-component';
 
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
@@ -17,8 +18,12 @@ import { Dropdown } from 'react-bootstrap';
 //import { MenuItem } from 'react-bootstrap';
 
 const AdmimManagement = () => {
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate('/admin-add');
+    }
+
     let [data, setData] = useState([]);
-    var navigate = useNavigate();
 
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
@@ -143,13 +148,31 @@ const AdmimManagement = () => {
             </nav>
             <div className="container-fluid">
                 <Card>
+                    <div className="card-header py-3">
+                        <div className="row">
+                            <div class="col-md-6">
+                                <button className="btn btn-primary btn-sm" onClick={handleClick} >
+                                    <i className="fas fa-user-plus"></i><span>  Add a admin</span>
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-lg-end dataTables_filter" id="dataTable_filter">
+                                    <label class="form-label"><input type="search" class="form-control form-control-sm"
+                                        aria-controls="dataTable" placeholder="Search" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <DataTable
-                        title="Admin Account"
+                        // title="Admin Account"
                         columns={columns}
                         data={data}
                         pagination
                         selectableRows
                     />
+
                 </Card>
             </div>
         </div>

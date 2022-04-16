@@ -7,6 +7,7 @@ import Profile from './Layout/Profile/profile';
 import ProfileUpdate from './Layout/Profile/profileUpdateFrom';
 import Dashboard from './Layout/Dashboard/dashboard';
 import AdminM from './Layout/Admin-management/admin-management';
+import AddAdmin from './Layout/Admin-management/admin-add';
 import UserM from './Layout/User-management/user-management';
 import Sidebar from './component/Sidebar/sidebar';
 import Footer from './component/Footer/footer';
@@ -31,6 +32,7 @@ function App() {
               <Route path="/changePass" element={<ProfileUpdate />} />
               <Route path="/userManagement" element={<UserM />} />
               <Route path="/adminManagement" element={<AdminM />} />
+              <Route path="/admin-add" element={<AddAdmin />} />
               <Route path="/login" element={<LoginForm />} />
               <Route exact path='/' element={<Navigate to="/login" />} />
             </Routes>

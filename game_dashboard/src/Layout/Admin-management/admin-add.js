@@ -8,23 +8,18 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const AdminProfile = () => {
-    const navigate = useNavigate();
-    const handleClick = () => {
-        navigate('/changePass');
-    }
+    // const navigate = useNavigate();
+    // const handleClick = () => {
+    //     navigate('/adminManagement');
+    // }
 
     const [admin, setAdmin] = useState(new AdminModel());
-    useEffect(() => {
-        axios.get("http://localhost:3001/adminManagement/getAdmin/khuongnvce140417@fpt.edu.vn").then((res) => {
-            setAdmin(res.data);
-        });
-    }, []);
     return (
         <div id="content">
             <nav className="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                 <div className="container-fluid"><button className="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i className="fas fa-bars"></i></button>
                     <div className="nav-item align-self-center">
-                        <h3 className="text-dark mb-0">Profile</h3>
+                        <h3 className="text-dark mb-0">Admin Management / Add a admin</h3>
                     </div>
                     <ul className="navbar-nav flex-nowrap ms-auto">
                         <div className="d-none d-sm-block topbar-divider"></div>
@@ -66,43 +61,26 @@ const AdminProfile = () => {
                             <div className="col">
                                 <div className="card shadow mb-3">
                                     <div className="card-header py-3">
-                                        <p className="text-primary m-0 fw-bold">Admin Settings</p>
+                                        <p className="text-primary m-0 fw-bold">Account Infomation</p>
                                     </div>
                                     <div className="card-body">
-                                        <form onSubmit={(e) => handleSubmit(e)}>
-
-                                            <div className="row">
-                                                <input className="form-control" type="hidden" id="txt_status" value={admin.Status == 1 ? "Enable" : "Disable"} readOnly="true" />
-
-                                                <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value={admin.Email} readOnly={true} /></div>
-                                                </div>
-
+                                        <form>
+                                            <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label>
+                                                <input className="form-control" type="email" id="txt_email" placeholder="Enter an email (name@gmai.com)" required/>
                                             </div>
-                                            <div className="row">
-                                                <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Nickname</strong></label><input className="form-control" type="text" id="txt_admin_username" defaultValue={admin.Username} /></div>
-                                                </div>
-                                                <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label><input className="form-control" type="text" id="txt_admin_phone" defaultValue={admin.Phone} name="last_name" /></div>
-                                                </div>
+                                            <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Nickname</strong></label>
+                                                <input className="form-control" type="text" id="txt_admin_username" placeholder="Enter a nickname" required/>
                                             </div>
-                                            <div className="row">
-                                                <div className="col">
-                                                    <div className="mb-3">
-                                                        <button className="btn btn-primary btn-md" type="submit">
-                                                            <i className="fas fa-edit"></i><span>  Edit Profile</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="col">
-                                                    <div className="mb-3">
-                                                        <button className="btn btn-primary btn-md" type="button" onClick={handleClick}>
-                                                            <i className="fas fa-lock"></i><span>  Change Password</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                            <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label>
+                                                <input className="form-control" type="text" id="txt_admin_phone" placeholder="Enter number phone" required/>
+                                            </div>
 
+                                            <div className="row">
+                                                <div className="mb-3">
+                                                    <button className="btn btn-primary btn-md btn-block" type="submit">
+                                                        <i className="fas fa-plus-circle"></i><span>  Add</span>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -115,28 +93,7 @@ const AdminProfile = () => {
         </div>
     );
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        const { txt_admin_username, txt_admin_phone } =
-            e.target.elements;
-        var adminUpdate = new AdminModel(
-            admin.Avatar,
-            admin.Email,
-            admin.Password,
-            txt_admin_phone.value,
-            txt_admin_username.value,
-            admin.Status
-        );
-        console.log(adminUpdate);
-        axios
-            .put(
-                "http://localhost:3001/adminManagement/update/" + admin.Email,
-                adminUpdate
-            )
-            .then((res) => {
-                alert("Update success");
-            });
-    }
+
 
 };
 export default AdminProfile;
