@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const AdminDB = db.collection("Admin");
+const AdminDB = db.firestore().collection("Admin");
 const AdminModel = require("../Model/admin");
 
 /* GET admins listing. */

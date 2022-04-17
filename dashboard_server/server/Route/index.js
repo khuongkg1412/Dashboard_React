@@ -5,7 +5,7 @@ const db = require("../config");
 const app = express();
 app.use(express.json());
 app.use(cors());
-const AdminDB = db.collection("Admin");
+const AdminDB = db.firestore().collection("Admin");
 var router = express.Router();
 
 var userSession;
