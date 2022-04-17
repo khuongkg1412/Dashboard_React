@@ -148,4 +148,22 @@ router.put("/changePassword/:email/:password", async (req, res) => {
   }
 });
 
+
+//get list phone number
+router.get("/listPhone", async (req, res) => {
+  var arrayPhone = [];
+  const emailsession = req.session.userId;
+  const data = await AdminDB.get();
+  if (!data.empty) {
+    data.forEach((element) => {
+      if(element.data().Email != emailsession){
+        arrayPhone.push(element.data().Phone);
+      }
+    });
+    res.send(arrayPhone);
+  } else {
+    res.send(false);
+  }
+});
+
 module.exports = router;
