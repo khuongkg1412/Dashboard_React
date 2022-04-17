@@ -102,11 +102,11 @@ const AdminProfile = () => {
     function checkOldPassword(oldpassword) {
         var isvalid = false;
         if (oldpassword == "") {
-            setOldPassError("Old password cannot be blank");
+            setOldPassError("Current Password cannot be blank!");
             isvalid = false;
             errorPass1();
         } else if (md5(oldpassword) != admin.Password) {
-            setOldPassError("Password is wrong");
+            setOldPassError("Incorrect Password!");
             isvalid = false;
             errorPass1();
         } else {
@@ -121,22 +121,21 @@ const AdminProfile = () => {
         let regex = /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,32}$/;
         var isvalid = false;
         if (newpassword == "") {
-            setNewPassError("New password cannot be blank");
+            setNewPassError("New Password cannot be blank!");
             isvalid = false;
             errorPass2();
         } else if (!newpassword.match(regex)) {
-            setNewPassError("Password must have at least one Uppercase Character, Lowercase Character, Digit, Special Symbol, 8-32 Characters Long and must not contain Whitespaces");
+            setNewPassError("Password must have at least one Uppercase Character, Lowercase Character, Digit, Special Symbol, 8-32 Characters Long and must not contain Whitespaces!");
             isvalid = false;
             errorPass2();
         } else if (oldpassword === newpassword) {
-            setOldPassError("New password must be difference from old password");
+            setOldPassError("New Password cannot be the same as your Current Password!");
             isvalid = false;
             errorPass2();
         } else {
             setNewPassError("");
             isvalid = true;
             acceptedPass2();
-
         }
         return isvalid;
     }
@@ -144,11 +143,11 @@ const AdminProfile = () => {
     function checkRePassword(newpassword, repassword) {
         var isvalid = false;
         if (repassword == "") {
-            setRePassError("Confirm password cannot be blank");
+            setRePassError("Confirm Password cannot be blank!");
             isvalid = false;
             errorPass3();
         } else if (repassword != newpassword) {
-            setRePassError("Confirm");
+            setRePassError("New Password and Confirm Password does not match!");
             isvalid = false;
             errorPass3();
         } else {

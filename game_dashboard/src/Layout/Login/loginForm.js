@@ -12,33 +12,33 @@ function Login() {
 
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [passwordError, setpasswordError] = useState("");
+    const [wrongError, setWrongError] = useState("");
     const [emailError, setemailError] = useState("");
     var navigate = useNavigate();
 
-    const handleValidation = (event) => {
-        let formIsValid = true;
+    // const handleValidation = (event) => {
+    //     let formIsValid = true;
 
-        if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
-            formIsValid = false;
-            setemailError("Email Not Valid");
-            return false;
-        } else {
-            setemailError("");
-            formIsValid = true;
-        }
+    //     // if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+    //     //     formIsValid = false;
+    //     //     setemailError("Invalid email address!");
+    //     //     return false;
+    //     // } else {
+    //     //     setemailError("");
+    //     //     formIsValid = true;
+    //     // }
 
-        if (!password.match(/^[a-zA-Z]{8,22}$/)) {
-            formIsValid = false;
-            setpasswordError("Only Letters and length must best min 8 Chracters and Max 22 Chracters");
-            return false;
-        } else {
-            setpasswordError("");
-            formIsValid = true;
-        }
+    //     // if (!password.match(/^[a-zA-Z]{8,22}$/)) {
+    //     //     formIsValid = false;
+    //     //     setpasswordError("Only Letters and length must best min 8 Chracters and Max 22 Chracters");
+    //     //     return false;
+    //     // } else {
+    //     //     setpasswordError("");
+    //     //     formIsValid = true;
+    //     // }
 
-        return formIsValid;
-    };
+    //     return formIsValid;
+    // };
 
     function Login(e, navigate) {
         e.preventDefault();
@@ -53,12 +53,15 @@ function Login() {
         axios.get('http://localhost:3001/login/' + request.email + '/' + md5(request.password), request)//md5(md5(request.password))
             .then(respn => {
                 if (respn.data != "no") {
-                    alert(respn.data);
+                    setWrongError("");
+                    alert("Welcome "+respn.data+"!");
             
                     localStorage.setItem("curent_Session", respn.data);
                     navigate("/dashboard");
+                    
                 } else {
-                    alert("Wrong user name or password")
+                    setWrongError("The Email or Password is Incorrect!");
+                    // alert("Wrong user name or password")
                 }
             })
             .catch(err => {
@@ -98,14 +101,13 @@ function Login() {
                                                 <div className="mb-3">
                                                     <input className="form-control form-control-user" type="password" id="Password" placeholder="Password" name="password"
                                                         onChange={(event) => setPassword(event.target.value)} />
+                                                        <span className="mb-2 text-danger">{wrongError}</span>
                                                 </div>
-                                                <button className="btn btn-primary d-block btn-user w-100 fs-6" type="submit">Login</button>
                                                 <hr />
+                                                <button className="btn btn-primary d-block btn-user w-100 fs-6" type="submit">Login</button>
+                                                
                                             </form>
-                                            <div className="text-center"><a className="small" href="forgot-password.html">Forgot
-                                                Password?</a></div>
-                                            <div className="text-center"><a className="small" href="register.html">Create an
-                                                Account!</a></div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -114,6 +116,11 @@ function Login() {
                     </div>
                 </div>
             </div >
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © LTD2K 2022</span></div>
+                </div>
+            </footer>
         </div >
     );
 }

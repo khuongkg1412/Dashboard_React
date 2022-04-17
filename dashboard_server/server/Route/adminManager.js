@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
         element.data().Email,
         element.data().Phone,
         element.data().Status,
-        element.data().Password
+        element.data().Password,
       );
       arrayAdmin.push(admin);
 
@@ -98,6 +98,19 @@ router.get("/getAdmin/:email", async (req, res) => {
       });
     });
   res.send(adminRes);
+});
+
+router.get("/getAdminId/:email", async (req, res) => {
+  const emailget = req.params.email;
+  let adminId = "";
+  await AdminDB.where("Email", "==", emailget)
+    .get()
+    .then(function (querysnapshot) {
+      querysnapshot.forEach(function (doc) {
+        adminId = doc.id;
+      });
+    });
+  res.send(adminId);
 });
 
 //Profile update
