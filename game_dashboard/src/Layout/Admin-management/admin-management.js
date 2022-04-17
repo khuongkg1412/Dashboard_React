@@ -95,7 +95,7 @@ const AdmimManagement = () => {
             center: true
         },
         {
-            name: "User name",
+            name: "Full Name",
             selector: (row) => row.Username,
             sortable: true,
             center: true

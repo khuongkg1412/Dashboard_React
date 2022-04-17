@@ -14,13 +14,26 @@ const AdminProfile = () => {
     const reloadPage = () => {
         navigate(0);
     }
+    //variable use for image
     const [avatarLoad, setAvatarLoad] = useState(null);
     const storage = app.storage();
 
 
-
+    //variable use for this admin in session
     const [admin, setAdmin] = useState(new AdminModel());
     const [IDadmin, setIDAdmin] = useState("");
+
+    //variable use for check input
+    const [phoneError, setPhoneError] = useState("");
+    const [fullNameError, setfullNameError] = useState("");
+    const [listphone, setListPhone] = useState([]);
+    const [listFullName, setlistFullName] = useState([]);
+
+    function getPhoneList() {
+        axios.get("http://localhost:3001/adminManagement/listPhone").then(async res => {
+            setListPhone(res.data);
+        });
+    }
 
     useEffect(() => {
         const getAdmin = async () => {
@@ -33,9 +46,9 @@ const AdminProfile = () => {
                 setIDAdmin(res.data);
             });
         }
-
         getAdmin();
         getAdminID();
+        getPhoneList();
     }, []);
     console.log(admin);
     async function Logout(e, navigate) {
@@ -119,19 +132,30 @@ const AdminProfile = () => {
                                         <form onSubmit={(e) => handleSubmit(e)}>
 
                                             <div className="row">
-                                                <input className="form-control" type="hidden" id="txt_status" value={admin.Status === 1 ? "Enable" : "Disable"} readOnly="true" />
+                                                <input className="form-control" type="hidden" id="txt_status" value={admin.Status === 1 ? "Enable" : "Disable"} readOnly={true} />
 
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="email"><strong>Email</strong></label><input className="form-control" type="email" id="txt_email" value={admin.Email} readOnly={true} /></div>
+                                                    <div className="mb-3">
+                                                        <label className="form-label" htmlFor="email"><strong>Email</strong></label>
+                                                        <input className="form-control" type="email" id="txt_email" value={admin.Email} readOnly={true} />
+                                                    </div>
                                                 </div>
 
                                             </div>
                                             <div className="row">
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="username"><strong>Nickname</strong></label><input className="form-control" type="text" id="txt_admin_username" defaultValue={admin.Username} /></div>
+                                                    <div className="mb-3">
+                                                        <label className="form-label" htmlFor="username"><strong>Full Name</strong></label>
+                                                        <input className="form-control" type="text" id="txt_admin_username" defaultValue={admin.Username} maxLength="24" />
+                                                        <span className="mb-2 text-danger">{fullNameError}</span>
+                                                    </div>
                                                 </div>
                                                 <div className="col">
-                                                    <div className="mb-3"><label className="form-label" htmlFor="phone"><strong>Phone</strong></label><input className="form-control" type="text" id="txt_admin_phone" defaultValue={admin.Phone} name="last_name" /></div>
+                                                    <div className="mb-3">
+                                                        <label className="form-label" htmlFor="phone"><strong>Phone</strong></label>
+                                                        <input className="form-control" type="text" id="txt_admin_phone" defaultValue={admin.Phone} />
+                                                        <span className="mb-2 text-danger">{phoneError}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -161,36 +185,98 @@ const AdminProfile = () => {
         </div>
     );
 
+    //check duplicate phone number
+    function checkDuplicatePhone(phone) {
+        var check = listphone.find(e => e == phone);
+        if (check && phone != admin.Phone) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //check string empty
+    function isRequired(input) {
+        if (input === "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //check phone input
+    function checkPhone(phone) {
+        var isvalid = false;
+        if (isRequired(phone)) {
+            setPhoneError("Phone Number cannot be empty!");
+            isvalid = false;
+        } else if (!phone.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/)) {
+            setPhoneError("Your Phone Number is invalid (Example: 84123456789 or 0123456789)");
+            isvalid = false;
+        } else if (checkDuplicatePhone(phone)) {
+            setPhoneError("This Phone Number is already being used!");
+            isvalid = false;
+        } else {
+            setPhoneError("");
+            isvalid = true;
+        }
+        return isvalid;
+    }
+
+    //validation full name
+    function checkFullName(fName) {
+        var isvalid = false;
+        if (isRequired(fName)) {
+            setfullNameError("Full Name cannot be empty");
+            isvalid = false;
+        } else if (!fName.match(/(^[A-Za-z]{1,16})([ ]{0,1})([A-Za-z]{1,16})?([ ]{0,1})?([A-Za-z]{1,16})?([ ]{0,1})?([A-Za-z]{1,16})/)) {
+            setfullNameError("Your Full Name is invalid!");
+            isvalid = false;
+        } else {
+            setfullNameError("");
+            isvalid = true;
+        }
+        return isvalid;
+    }
+
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const storageRef = storage.ref("AdminAvatar/");
-        const fileRef = storageRef.child(IDadmin + ".png");
-        await fileRef.put(avatarLoad);
-        fileRef.getDownloadURL().then(res => {
-            var imageURL = res;
-            const { txt_admin_username, txt_admin_phone } =
-                e.target.elements;
-            var adminUpdate = new AdminModel(
-                imageURL,
-                txt_admin_username.value,
-                admin.Email,
-                txt_admin_phone.value,
-                admin.Status,
-                admin.Password,
-            );
-            console.log(adminUpdate);
-            axios
-                .put(
-                    "http://localhost:3001/adminManagement/update/" + localStorage.getItem("curent_Session"),
-                    adminUpdate
-                )
-                .then((res) => {
-                    alert("Update successfully!");
-                    reloadPage();
+        var txt_FullName = document.getElementById('txt_admin_username').value;
+        var txt_Phone = document.getElementById('txt_admin_phone').value;
+        var isvalidFullName = checkFullName(txt_FullName);
+        var isvalidPhone = checkPhone(txt_Phone);
+        var isvalidInput = isvalidFullName && isvalidPhone;
+        if (isvalidInput) {
+            const storageRef = storage.ref("AdminAvatar/");
+            const fileRef = storageRef.child(IDadmin + ".png");
+            if (avatarLoad != null) {
+                await fileRef.put(avatarLoad);
+            }
+            fileRef.getDownloadURL().then(res => {
+                var imageURL = res;
+                const { txt_admin_username, txt_admin_phone } =
+                    e.target.elements;
+                var adminUpdate = new AdminModel(
+                    imageURL,
+                    txt_admin_username.value,
+                    admin.Email,
+                    txt_admin_phone.value,
+                    admin.Status,
+                    admin.Password,
+                );
+                console.log(adminUpdate);
+                axios
+                    .put(
+                        "http://localhost:3001/adminManagement/update/" + localStorage.getItem("curent_Session"),
+                        adminUpdate
+                    )
+                    .then((res) => {
+                        alert("Update successfully!");
+                        reloadPage();
 
-                });
-        });
+                    });
+            });
+        }
+
 
 
     }
