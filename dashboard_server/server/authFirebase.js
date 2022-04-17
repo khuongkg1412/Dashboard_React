@@ -14,10 +14,10 @@ const firebaseConfig = {
 // Initialize Firebase
 var serviceAccount = require("../ltd2k-fptk14-firebase-adminsdk-l0fz6-778e7b3dfa.json");
 
-admin.initializeApp({
+const app = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://ltd2k-fptk14-default-rtdb.asia-southeast1.firebasedatabase.app"
 });
 var defaultAuth = admin.auth();
 
-module.exports = defaultAuth;
+module.exports = app;

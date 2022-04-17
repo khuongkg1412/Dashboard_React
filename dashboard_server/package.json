@@ -10,12 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@firebase/auth": "^0.19.12",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "firebase": "^7.24.0",
-    "firebase-admin": "^6.5.1",
+    "firebase-admin": "^10.0.2",
     "jade": "^1.11.0",
     "md5": "^2.3.0",
     "morgan": "^1.10.0"
