@@ -1,9 +1,8 @@
 import "../../../src/App.css";
 import gameLogo from '../../img/LTD2K.png';
-import {useLocation} from 'react-router-dom'
+import { useLocation, NavLink, Link } from 'react-router-dom'
 function Sidebar() {
     let location = useLocation()
-
     if (location.pathname === '/login') return null
 
     return (
@@ -16,21 +15,48 @@ function Sidebar() {
                 <hr className="sidebar-divider my-0" />
                 <ul className="navbar-nav text-light" id="accordionSidebar">
                     <li className="nav-item">
-                        {/* Dung Link thi dung logic cua router js hon la <a> */}
-                        <a className="nav-link" href="/dashboard"><i
-                            className="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                        <NavLink to="/dashboard"
+                            style={({ isActive }) => ({
+                                color: isActive ? '#fff' : '0',
+                                background: isActive ? 'rgb(29 61 124 / 35%)' : '0',
+                            })}
+                            className="nav-link">
+                            <i className="fas fa-tachometer-alt"></i><span>Dashboard</span></NavLink>
+                    </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/profile"><i
-                            className="fas fa-user"></i><span>Profile</span></a></li>
+                        <NavLink to="/profile"
+                            style={({ isActive }) => ({
+                                color: isActive ? '#fff' : '0',
+                                background: isActive ? 'rgb(29 61 124 / 35%)' : '0',
+                            })}
+                            className="nav-link">
+                            <i className="fas fa-user"></i><span>Profile</span></NavLink>
+                    </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/userManagement"><i
-                            className="fas fa-table"></i><span>User Management</span></a></li>
+                        <NavLink to="/userManagement"
+                            style={({ isActive }) => ({
+                                color: isActive ? '#fff' : '0',
+                                background: isActive ? 'rgb(29 61 124 / 35%)' : '0',
+                            })}
+                            className="nav-link">
+                            <i className="fas fa-table"></i><span>User Management</span></NavLink>
+                    </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/adminManagement"><i
-                            className="fas fa-users-cog"></i><span>Admin Management</span></a></li>
+                        <NavLink to="/adminManagement"
+                            style={({ isActive }) => ({
+                                color: isActive ? '#fff' : '0',
+                                background: isActive ? 'rgb(29 61 124 / 35%)' : '0',
+                            })}
+                            className="nav-link">
+                            <i className="fas fa-users-cog"></i><span>Admin Management</span></NavLink>
+                    </li>
                 </ul>
             </div>
         </nav>
-    )
+    );
+
+
+
+
 }
 export default Sidebar;
