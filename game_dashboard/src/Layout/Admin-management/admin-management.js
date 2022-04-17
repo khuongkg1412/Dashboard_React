@@ -88,7 +88,7 @@ const AdmimManagement = () => {
             cell: (row) => (
                 <div className="card-body text-center">
                     {
-                        <img width="80px" height="80px" src={row.Avatar} alt="admin avatar" />
+                        <img className="rounded-circle" width="80px" height="80px" src={row.Avatar} alt="admin avatar" />
                     }
                 </div>
             ),

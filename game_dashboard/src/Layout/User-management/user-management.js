@@ -1,29 +1,67 @@
-import { Dropdown } from 'react-bootstrap';
-import React, { useState, useEffect, useCallback } from 'react'
-import AdminModel from "../../Model/admin";
 import axios from 'axios'
+import React, { useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
+import { Dropdown } from 'react-bootstrap';
+import Switch from "@mui/material/Switch"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import { Card } from '@mui/material';
 
+import DataTable from 'react-data-table-component';
+import AdminModel from "../../Model/admin";
 
 const UserManagement = () => {
     const navigate = useNavigate();
 
-    let [data, setData] = useState([]);
+    
+    const [Q, setQ] = useState("");
+    const [data, setData] = useState([]);
     const [admin, setAdmin] = useState(new AdminModel());
     var check = localStorage.getItem("curent_Session");
     // Using useEffect to call the API once mounted and set the data
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     if (check == "no") navigate("/login");
-    //     else {
-    //         const getAdmin = async () => {
-    //             await axios.request("http://localhost:3001/userManagement").then(response => {
-    //                 setData(response.data)
-    //             })
-    //         }
-    //         getAdmin();
-    //     }
-    // }, [check, navigate]);
+        if (check === "no" || check == null) navigate("/login");
+        else {
+            const getUsers = async () => {
+                await axios.request("http://localhost:3001/userManagement").then(response => {
+                    setData(response.data)
+                })
+            }
+            const getAdmin = async () => {
+                await axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
+                    setAdmin(res.data);
+                });
+            }
+            getUsers();
+            getAdmin();
+        }
+    }, [check, navigate]);
+
+    const changeStatus = ((UID, status) => {
+        return async (e) => {
+            if (!status) {
+                axios.put("http://localhost:3001/userManagement/disable/" + UID).then(res => {
+                    if (res.data === true) {
+                        alert("Disable success");
+                        window.location.reload(false);
+                    } else {
+                        alert("Disable fail");
+                        window.location.reload(false);
+                    }
+                });
+            } else {
+                axios.put("http://localhost:3001/userManagement/enable/" + UID).then(res => {
+                    if (res.data === true) {
+                        alert("Enable success");
+                        window.location.reload(false);
+                    } else {
+                        alert("Enable fail");
+                        window.location.reload(false);
+                    }
+                });
+            }
+        }
+    });
 
     async function Logout(e, navigate) {
         e.preventDefault();
@@ -31,6 +69,61 @@ const UserManagement = () => {
         localStorage.clear();
         navigate("/login");
     }
+
+    function search(rows) {
+        return rows.filter((row) => row.Name.toLowerCase().indexOf (Q) > -1);
+    }
+
+    const columns = [
+        {
+            name: "Character Name",
+            selector: (row) => row.Name,
+            sortable: true,
+            center: true
+        },
+        {
+            name: "Create Date",
+            selector: (row) => row.Createdate,
+            center: true
+        },
+        {
+            name: "Last Sign In Date",
+            selector: (row) => row.SignIn,
+            sortable: true,
+            center: true
+        },
+        {
+            name: "Current Level",
+            selector: (row) => row.Level,
+            sortable: true,
+            center: true
+        }, 
+        {
+            name: "Highest Stage",
+            selector: (row) => row.Stage,
+            sortable: true,
+            center: true
+        },
+        {
+            name: "Status",
+            selector: (row) => row.Status,
+            cell: (row) => (
+                <div className="card-body text-center">
+                    {
+                        // check === "khuongnvce140417@fpt.edu.vn"
+                            (!row.Status
+                                ? <FormControlLabel control={<Switch checked onClick={changeStatus(row.Id, row.Status)} />} label="Enable" />
+                                : <FormControlLabel control={<Switch  onClick={changeStatus(row.Id, row.Status)} />} label="Disable" />)
+                            // : null
+                    }
+                </div>
+            ),
+            center: true
+
+        }
+    ];
+
+
     return (
 
         <div id="content">
@@ -57,38 +150,28 @@ const UserManagement = () => {
                 </div>
             </nav>
             <div className="container-fluid">
-                <div className="card shadow">
+            <Card>
                     <div className="card-header py-3">
-                        <p className="text-primary m-0 fw-bold">User Information</p>
-                    </div>
-                    <div className="card-body">
-                        <div className="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                            <table className="table my-0" id="dataTable">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Gender</th>
-                                        <th>Level</th>
-                                        <th>Stage</th>
-                                        <th>Created date</th>
-                                        <th>Enable</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><img className="rounded-circle me-2" width="30" height="30" src={admin.Avatar} />Khuong Nguyen</td>
-                                        <td>Male</td>
-                                        <td>99</td>
-                                        <td>99</td>
-                                        <td>2022/02/25</td>
-                                        <td><input className="form-check-input" type="checkbox" id="formCheck" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div className="row">
+                            <div className="col-md-6">
+                                
+                            </div>
+                            <div className="col-md-6">
+                                <div className="text-lg-end dataTables_filter" id="dataTable_filter">
+                                    <label className="form-label"><input onChange={(e) => setQ(e.target.value)} type="text" className="form-control form-control-sm"
+                                        aria-controls="dataTable" placeholder="Search" value={Q}/>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <DataTable
+                        columns={columns}
+                        data={search(data)}
+                        pagination
+                    />
+                </Card>
             </div>
         </div>
 

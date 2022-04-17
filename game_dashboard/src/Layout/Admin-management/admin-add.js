@@ -17,7 +17,7 @@ const AdminProfile = () => {
         const { txt_admin_username, txt_admin_phone, txt_email } =
             e.target.elements;
         var adminAdd = new AdminModel(
-            "",
+            "https://firebasestorage.googleapis.com/v0/b/ltd2k-fptk14.appspot.com/o/AdminAvatar%2Fdefault.png?alt=media&token=7bd0e19f-d8c3-4b4f-8b95-35fa86242251",
             txt_admin_username.value,
             txt_email.value,
             txt_admin_phone.value,
