@@ -14,27 +14,28 @@ const AdminProfile = () => {
     const reloadPage = () => {
         navigate(0);
     }
-    //variable use for image
+    //Variable use for image
     const [avatarLoad, setAvatarLoad] = useState(null);
     const storage = app.storage();
 
 
-    //variable use for this admin in session
+    //Variable use for this admin in session
     const [admin, setAdmin] = useState(new AdminModel());
     const [IDadmin, setIDAdmin] = useState("");
 
-    //variable use for check input
+    //Variable use for check input
     const [phoneError, setPhoneError] = useState("");
     const [fullNameError, setfullNameError] = useState("");
     const [listphone, setListPhone] = useState([]);
-    const [listFullName, setlistFullName] = useState([]);
 
+    //API get phone list to check duplicate
     function getPhoneList() {
         axios.get("http://localhost:3001/adminManagement/listPhone").then(async res => {
             setListPhone(res.data);
         });
     }
 
+    //Using useEffect to call the API once mounted and set the data
     useEffect(() => {
         const getAdmin = async () => {
             await axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
@@ -48,7 +49,7 @@ const AdminProfile = () => {
         }
         getAdmin();
         getAdminID();
-        getPhoneList();
+        getPhoneList();//Call function get list phone to check duplicate
     }, []);
     console.log(admin);
     async function Logout(e, navigate) {
@@ -57,17 +58,14 @@ const AdminProfile = () => {
         localStorage.clear();
         navigate("/login");
     }
+    //Preview selected photo 
     useEffect(() => {
-
         const avat = document.querySelector("#avatarView");
         const photoUpload = document.querySelector("#fileUpload");
-
         photoUpload.addEventListener("change", function () {
             const chosenPhoto = this.files[0];
-
             if (chosenPhoto) {
                 const photoReader = new FileReader();
-
                 photoReader.addEventListener("load", function () {
                     avat.setAttribute("src", photoReader.result);
                 });
@@ -130,31 +128,28 @@ const AdminProfile = () => {
                                     </div>
                                     <div className="card-body">
                                         <form onSubmit={(e) => handleSubmit(e)}>
-
                                             <div className="row">
                                                 <input className="form-control" type="hidden" id="txt_status" value={admin.Status === 1 ? "Enable" : "Disable"} readOnly={true} />
-
                                                 <div className="col">
                                                     <div className="mb-3">
                                                         <label className="form-label" htmlFor="email"><strong>Email</strong></label>
                                                         <input className="form-control" type="email" id="txt_email" value={admin.Email} readOnly={true} />
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div className="row">
                                                 <div className="col">
                                                     <div className="mb-3">
                                                         <label className="form-label" htmlFor="username"><strong>Full Name</strong></label>
-                                                        <input className="form-control" type="text" id="txt_admin_username" defaultValue={admin.Username} maxLength="24" />
-                                                        <span className="mb-2 text-danger">{fullNameError}</span>
+                                                        <input className="form-control border" type="text" id="txt_admin_username" defaultValue={admin.Username} maxLength="24" />
+                                                        <span className="mb-2 text-danger ">{fullNameError}</span>
                                                     </div>
                                                 </div>
                                                 <div className="col">
                                                     <div className="mb-3">
                                                         <label className="form-label" htmlFor="phone"><strong>Phone</strong></label>
-                                                        <input className="form-control" type="text" id="txt_admin_phone" defaultValue={admin.Phone} />
-                                                        <span className="mb-2 text-danger">{phoneError}</span>
+                                                        <input className="form-control border" type="text" id="txt_admin_phone" defaultValue={admin.Phone} />
+                                                        <span className="mb-2 text-danger ">{phoneError}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -208,15 +203,19 @@ const AdminProfile = () => {
         if (isRequired(phone)) {
             setPhoneError("Phone Number cannot be empty!");
             isvalid = false;
+            errorPhone();
         } else if (!phone.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/)) {
             setPhoneError("Your Phone Number is invalid (Example: 84123456789 or 0123456789)");
             isvalid = false;
+            errorPhone();
         } else if (checkDuplicatePhone(phone)) {
             setPhoneError("This Phone Number is already being used!");
             isvalid = false;
+            errorPhone();
         } else {
             setPhoneError("");
             isvalid = true;
+            acceptedPhone();
         }
         return isvalid;
     }
@@ -227,17 +226,20 @@ const AdminProfile = () => {
         if (isRequired(fName)) {
             setfullNameError("Full Name cannot be empty!");
             isvalid = false;
-        } else if (!fName.match(/(^[A-Za-z]{1,16})([ ]{0,1})([A-Za-z]{1,16})?([ ]{0,1})?([A-Za-z]{1,16})?([ ]{0,1})?([A-Za-z]{1,16})/)) {
-            setfullNameError("Your Full Name is invalid!");
+            errorFullName();
+        } else if (!fName.match(/^(?:([a-zA-Z]{1,10}\.){0,1} ?([a-zA-Z]{1,10})) ([a-zA-Z]{1,1}\. ){0,1}([a-zA-Z]{1,10} ){0,2}([A-Za-z']{1,10})((?:, ([a-zA-Z]{2,5}\.?)){0,4}?)$/)) {
+            setfullNameError("Full Name consists of 2 or more words and must not contain special characters (Example: Huy Nguyen, Tran Nhu Y)");
             isvalid = false;
+            errorFullName();
         } else {
             setfullNameError("");
             isvalid = true;
+            acceptedFullName();
         }
         return isvalid;
     }
 
-
+    //Funciton button handle submit event to edit information
     async function handleSubmit(e) {
         e.preventDefault();
         var txt_FullName = document.getElementById('txt_admin_username').value;
@@ -270,17 +272,33 @@ const AdminProfile = () => {
                         adminUpdate
                     )
                     .then((res) => {
-                        alert("Update successfully!");
+                        alert("Edit successfully!");
                         reloadPage();
-
                     });
             });
         }
-
-
-
     }
+    //START border input
+    function acceptedFullName() {
+        var element = document.getElementById("txt_admin_username");
+        element.classList.add("border-success");
+        element.classList.remove("border-danger");
+    }
+    function acceptedPhone() {
+        var element = document.getElementById("txt_admin_phone");
+        element.classList.add("border-success");
+        element.classList.remove("border-danger");
+    }
+    function errorFullName() {
+        var element = document.getElementById("txt_admin_username");
+        element.classList.add("border-danger");
+        element.classList.remove("border-success");
+    }
+    function errorPhone() {
+        var element = document.getElementById("txt_admin_phone");
+        element.classList.add("border-danger");
+        element.classList.remove("border-success");
 
-
+    }//END border input
 };
 export default AdminProfile;

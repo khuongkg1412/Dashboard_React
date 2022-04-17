@@ -11,10 +11,13 @@ const AdminProfile = () => {
         navigate('/profile');
     }
 
+    //Variable to set error span 
     const [oldPassError, setOldPassError] = useState("");
     const [newPassError, setNewPassError] = useState("");
     const [rePassError, setRePassError] = useState("");
     const [admin, setAdmin] = useState(new AdminModel());
+
+    //Using useEffect to call the API once mounted and set the data
     useEffect(() => {
         axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
             setAdmin(res.data);
@@ -99,6 +102,7 @@ const AdminProfile = () => {
         </div>
     );
 
+    //Validation current password input
     function checkOldPassword(oldpassword) {
         var isvalid = false;
         if (oldpassword == "") {
@@ -116,7 +120,7 @@ const AdminProfile = () => {
         }
         return isvalid;
     }
-
+    //Validation new password input
     function checkNewPassword(oldpassword, newpassword) {
         let regex = /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,32}$/;
         var isvalid = false;
@@ -139,7 +143,7 @@ const AdminProfile = () => {
         }
         return isvalid;
     }
-
+    //Validation confirm password input
     function checkRePassword(newpassword, repassword) {
         var isvalid = false;
         if (repassword == "") {
@@ -158,6 +162,7 @@ const AdminProfile = () => {
         return isvalid;
     }
 
+    //Funciton button handle submit event to change password
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -181,6 +186,8 @@ const AdminProfile = () => {
                 });
         }
     }
+
+    //START border input error
     function acceptedPass1() {
         var element = document.getElementById("cur_pass");
         element.classList.add("border-success");
@@ -210,7 +217,7 @@ const AdminProfile = () => {
         var element = document.getElementById("confirm_pass");
         element.classList.add("border-danger");
         element.classList.remove("border-success");
-    }
+    }//END border input error
 
 
 };
