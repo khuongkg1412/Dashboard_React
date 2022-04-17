@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AdminModel from "../../Model/admin";
 import { useNavigate } from "react-router-dom";
+import { app } from '../../config';
 
 
 const AdminProfile = () => {
@@ -13,22 +14,55 @@ const AdminProfile = () => {
     const reloadPage = () => {
         navigate(0);
     }
-   
+    const [avatarLoad, setAvatarLoad] = useState(null);
+    const storage = app.storage();
+
+
 
     const [admin, setAdmin] = useState(new AdminModel());
-    useEffect(() => {
-        axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
-            setAdmin(res.data);
-        });
-    }, []);
+    const [IDadmin, setIDAdmin] = useState("");
 
+    useEffect(() => {
+        const getAdmin = async () => {
+            await axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
+                setAdmin(res.data);
+            });
+        }
+        const getAdminID = async () => {
+            axios.get("http://localhost:3001/adminManagement/getAdminId/" + localStorage.getItem("curent_Session")).then((res) => {
+                setIDAdmin(res.data);
+            });
+        }
+
+        getAdmin();
+        getAdminID();
+    }, []);
+    console.log(admin);
     async function Logout(e, navigate) {
         e.preventDefault();
         await axios.get('http://localhost:3001/logout')
         localStorage.clear();
         navigate("/login");
     }
-    
+    useEffect(() => {
+
+        const avat = document.querySelector("#avatarView");
+        const photoUpload = document.querySelector("#fileUpload");
+
+        photoUpload.addEventListener("change", function () {
+            const chosenPhoto = this.files[0];
+
+            if (chosenPhoto) {
+                const photoReader = new FileReader();
+
+                photoReader.addEventListener("load", function () {
+                    avat.setAttribute("src", photoReader.result);
+                });
+                photoReader.readAsDataURL(chosenPhoto);
+            }
+        });
+    }, []);
+
     return (
         <div id="content">
             <nav className="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -61,10 +95,12 @@ const AdminProfile = () => {
                             <div className="card-header py-3">
                                 <p className="text-primary m-0 fw-bold text-center">Avatar</p>
                             </div>
-                            <div className="card-body text-center shadow"><img className="rounded-circle mb-3 mt-4" src={admin.Avatar} width="160" height="160" alt=''/>
+                            <div className="card-body text-center shadow"><img className="rounded-circle mb-3 mt-4" src={admin.Avatar} width="160" height="160" id="avatarView" />
                                 <div className="mb-3">
                                     <div className="file btn btn-primary btn-md">
-                                        <input type={"file"} id="fileUpload" />
+                                        <input type={"file"} id="fileUpload"
+                                            accept=".jpg, .png, .jpeg"
+                                            onChange={(e) => { setAvatarLoad(e.target.files[0]) }} />
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +138,7 @@ const AdminProfile = () => {
                                                 <div className="col">
                                                     <div className="mb-3">
                                                         <button className="btn btn-primary btn-md" type="submit">
-                                                            <i className="fas fa-edit"></i><span>  Edit Profile</span>
+                                                            <i className="fas fa-edit"></i><span>  Save Change</span>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -125,31 +161,40 @@ const AdminProfile = () => {
         </div>
     );
 
-    function handleSubmit(e) {
+
+    async function handleSubmit(e) {
         e.preventDefault();
-        const { txt_admin_username, txt_admin_phone } =
-            e.target.elements;
-        var adminUpdate = new AdminModel(
-            admin.Avatar,
-            txt_admin_username.value,
-            admin.Email,
-            txt_admin_phone.value,
-            admin.Status,
-            admin.Password
-        );
-        console.log(adminUpdate);
-        axios
-            .put(
-                "http://localhost:3001/adminManagement/update/" + localStorage.getItem("curent_Session"),
-                adminUpdate
-            )
-            .then((res) => {
-                alert("Update successfully!");
-                reloadPage();
-                
-            });
-            
+        const storageRef = storage.ref("AdminAvatar/");
+        const fileRef = storageRef.child(IDadmin + ".png");
+        await fileRef.put(avatarLoad);
+        fileRef.getDownloadURL().then(res => {
+            var imageURL = res;
+            const { txt_admin_username, txt_admin_phone } =
+                e.target.elements;
+            var adminUpdate = new AdminModel(
+                imageURL,
+                txt_admin_username.value,
+                admin.Email,
+                txt_admin_phone.value,
+                admin.Status,
+                admin.Password,
+            );
+            console.log(adminUpdate);
+            axios
+                .put(
+                    "http://localhost:3001/adminManagement/update/" + localStorage.getItem("curent_Session"),
+                    adminUpdate
+                )
+                .then((res) => {
+                    alert("Update successfully!");
+                    reloadPage();
+
+                });
+        });
+
+
     }
+
 
 };
 export default AdminProfile;
