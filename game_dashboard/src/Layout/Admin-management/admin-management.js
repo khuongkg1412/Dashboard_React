@@ -158,14 +158,14 @@ const AdmimManagement = () => {
                 <Card>
                     <div className="card-header py-3">
                         <div className="row">
-                            <div class="col-md-6">
+                            <div className="col-md-6">
                                 <button className="btn btn-primary btn-sm" onClick={handleClick} >
                                     <i className="fas fa-user-plus"></i><span>  Add a admin</span>
                                 </button>
                             </div>
-                            <div class="col-md-6">
-                                <div class="text-lg-end dataTables_filter" id="dataTable_filter">
-                                    <label class="form-label"><input onChange={(e) => setQ(e.target.value)} type="text" class="form-control form-control-sm"
+                            <div className="col-md-6">
+                                <div className="text-lg-end dataTables_filter" id="dataTable_filter">
+                                    <label className="form-label"><input onChange={(e) => setQ(e.target.value)} type="text" className="form-control form-control-sm"
                                         aria-controls="dataTable" placeholder="Search" value={Q}/>
                                     </label>
                                 </div>

@@ -3,6 +3,8 @@ import React, { useState, useEffect, useCallback } from 'react'
 import AdminModel from "../../Model/admin";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+
+
 const UserManagement = () => {
     const navigate = useNavigate();
 
@@ -10,23 +12,18 @@ const UserManagement = () => {
     const [admin, setAdmin] = useState(new AdminModel());
     var check = localStorage.getItem("curent_Session");
     // Using useEffect to call the API once mounted and set the data
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (check == "no") navigate("/login");
-        else {
-            const getAdmin = async () => {
-                await axios.request("http://localhost:3001/adminManagement").then(response => {
-                    setData(response.data)
-                })
-                axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
-                    setAdmin(res.data);
-                });
-            }
-            getAdmin();
-
-
-        }
-    }, []);
+    //     if (check == "no") navigate("/login");
+    //     else {
+    //         const getAdmin = async () => {
+    //             await axios.request("http://localhost:3001/userManagement").then(response => {
+    //                 setData(response.data)
+    //             })
+    //         }
+    //         getAdmin();
+    //     }
+    // }, [check, navigate]);
 
     async function Logout(e, navigate) {
         e.preventDefault();

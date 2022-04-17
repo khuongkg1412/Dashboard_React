@@ -52,6 +52,13 @@ const AdminProfile = () => {
         }
     }, [check, navigate]);
 
+    const [file, setFile] = useState(null);
+  const [url, setURL] = useState("");
+
+  function handleChange(e) {
+    setFile(e.target.files[0]);
+  }
+
     async function Logout(e, navigate) {
         e.preventDefault();
         await axios.get('http://localhost:3001/logout')
@@ -94,7 +101,7 @@ const AdminProfile = () => {
                             <div className="card-body text-center shadow"><img className="rounded-circle mb-3 mt-4" src={avatarBackground} alt="" width="160" height="160" />
                                 <div className="mb-3">
                                     <div className="file btn btn-primary btn-md">
-                                        <input type={"file"} id="fileUpload" />
+                                        <input type={"file"} id="fileUpload"onChange={handleChange} />
                                     </div>
                                 </div>
                             </div>

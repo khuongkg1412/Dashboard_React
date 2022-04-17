@@ -29,7 +29,6 @@ app.set('view engine', 'jade');
 
 
 var indexRouter = require('./Route/index');
-var profileRouter = require('./Route/profile');
 var adminManagerRouter = require('./Route/adminManager');
 var userManagerRouter = require('./Route/userManager')
 
@@ -53,8 +52,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-// app.use('/profile', profileRouter);
-// app.use('/userManagement', userManagerRouter );
+app.use('/userManagement', userManagerRouter);
 app.use('/adminManagement', adminManagerRouter);
 
 // catch 404 and forward to error handler

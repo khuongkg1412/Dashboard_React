@@ -19,6 +19,7 @@ router.get("/", async (req, res) => {
   } else {
 
     data.forEach(element => {
+      console.log(element.id);
       var admin = new AdminModel(
         element.data().Avatar,
         element.data().Username,
@@ -41,6 +42,9 @@ router.put("/add", async (req, res) => {
   res.send(true);
 });
 
+// router.post("/add/uploadImage")
+
+// Enable account by email
 router.put("/enable/:email", async (req, res) => {
   const emailget = req.params.email;
   const reqDB = await AdminDB.where("Email", "==", emailget).get();
@@ -58,6 +62,7 @@ router.put("/enable/:email", async (req, res) => {
   }
 });
 
+// Disable account by email
 router.put("/disable/:email", async (req, res) => {
   const emailget = req.params.email;
   const reqDB = await AdminDB.where("Email", "==", emailget).get();
@@ -81,7 +86,6 @@ router.put("/disable/:email", async (req, res) => {
   }
 });
 
-
 //Profile
 router.get("/getAdmin/:email", async (req, res) => {
   const emailget = req.params.email;
@@ -95,8 +99,6 @@ router.get("/getAdmin/:email", async (req, res) => {
     });
   res.send(adminRes);
 });
-
-
 
 //Profile update
 router.put("/update/:email", async (req, res) => {
@@ -117,6 +119,7 @@ router.put("/update/:email", async (req, res) => {
     res.send(false);
   }
 });
+
 //change pass
 router.put("/changePassword/:email/:password", async (req, res) => {
   const emailget = req.params.email;
