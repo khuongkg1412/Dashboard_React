@@ -225,7 +225,7 @@ const AdminProfile = () => {
     function checkFullName(fName) {
         var isvalid = false;
         if (isRequired(fName)) {
-            setfullNameError("Full Name cannot be empty");
+            setfullNameError("Full Name cannot be empty!");
             isvalid = false;
         } else if (!fName.match(/(^[A-Za-z]{1,16})([ ]{0,1})([A-Za-z]{1,16})?([ ]{0,1})?([A-Za-z]{1,16})?([ ]{0,1})?([A-Za-z]{1,16})/)) {
             setfullNameError("Your Full Name is invalid!");
