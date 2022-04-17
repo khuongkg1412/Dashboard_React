@@ -169,5 +169,21 @@ router.get("/listPhone", async (req, res) => {
     res.send(false);
   }
 });
+//get list email
+router.get("/listEmail", async (req, res) => {
+  var arrayEmail = [];
+  const emailsession = req.session.userId;
+  const data = await AdminDB.get();
+  if (!data.empty) {
+    data.forEach((element) => {
+      if(element.data().Email != emailsession){
+        arrayEmail.push(element.data().Email);
+      }
+    });
+    res.send(arrayEmail);
+  } else {
+    res.send(false);
+  }
+});
 
 module.exports = router;

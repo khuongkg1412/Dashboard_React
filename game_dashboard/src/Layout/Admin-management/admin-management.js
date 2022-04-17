@@ -1,14 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from 'axios'
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from 'react-bootstrap';
 import Switch from "@mui/material/Switch"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import { Card } from '@mui/material';
-
 import DataTable from 'react-data-table-component';
-
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 import "../../App.css";
 import AdminModel from "../../Model/admin";
@@ -24,9 +22,9 @@ const AdmimManagement = () => {
     const [data, setData] = useState([]);
     const [admin, setAdmin] = useState(new AdminModel());
     var check = localStorage.getItem("curent_Session");
+
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
-
         if (check === "no" || check == null) navigate("/login");
         else {
             const getAdmins = async () => {
@@ -44,6 +42,7 @@ const AdmimManagement = () => {
         }
     }, [check, navigate]);
 
+    //Handle API enable or disable an Admin
     const changeStatus = ((email, status) => {
         return async (e) => {
             if (status === 1) {
@@ -70,17 +69,19 @@ const AdmimManagement = () => {
         }
     });
 
+    //Logout the system
     async function Logout(e, navigate) {
         e.preventDefault();
         await axios.get('http://localhost:3001/logout')
         localStorage.clear();
         navigate("/login");
     }
-
+    //Function search by Full Name in data table
     function search(rows) {
-        return rows.filter((row) => row.Username.toLowerCase().indexOf (Q) > -1);
+        return rows.filter((row) => row.Username.toLowerCase().indexOf(Q) > -1);
     }
 
+    //Config columns and put data in DataTable
     const columns = [
         {
             name: "Avatar",
@@ -120,13 +121,12 @@ const AdmimManagement = () => {
                         check === "khuongnvce140417@fpt.edu.vn"
                             ? (row.Status === 1
                                 ? <FormControlLabel control={<Switch checked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
-                                : <FormControlLabel control={<Switch  onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
+                                : <FormControlLabel control={<Switch onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
                             : null
                     }
                 </div>
             ),
             center: true
-
         }
     ];
 
@@ -178,7 +178,6 @@ const AdmimManagement = () => {
                         data={search(data)}
                         pagination
                     />
-
                 </Card>
             </div>
         </div>
