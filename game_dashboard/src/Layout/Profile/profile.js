@@ -29,28 +29,34 @@ const AdminProfile = () => {
     const [listphone, setListPhone] = useState([]);
 
     //API get phone list to check duplicate
-    function getPhoneList() {
-        axios.get("http://localhost:3001/adminManagement/listPhone").then(async res => {
+    async function getPhoneList() {
+        await axios.get("http://localhost:3001/adminManagement/listPhone").then(async res => {
             setListPhone(res.data);
         });
     }
 
+    var check = localStorage.getItem("curent_Session");
     //Using useEffect to call the API once mounted and set the data
     useEffect(() => {
-        const getAdmin = async () => {
-            await axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
-                setAdmin(res.data);
-            });
+        console.log(check);
+        if (check === "no" || check == null) navigate("/login")
+        else {
+            const getAdmin = async () => {
+                await axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
+                    setAdmin(res.data);
+                });
+            }
+            const getAdminID = async () => {
+                await axios.get("http://localhost:3001/adminManagement/getAdminId/" + localStorage.getItem("curent_Session")).then((res) => {
+                    setIDAdmin(res.data);
+                });
+            }
+            getAdmin();
+            getAdminID();
+            getPhoneList();//Call function get list phone to check duplicate
         }
-        const getAdminID = async () => {
-            axios.get("http://localhost:3001/adminManagement/getAdminId/" + localStorage.getItem("curent_Session")).then((res) => {
-                setIDAdmin(res.data);
-            });
-        }
-        getAdmin();
-        getAdminID();
-        getPhoneList();//Call function get list phone to check duplicate
     }, []);
+
     console.log(admin);
     async function Logout(e, navigate) {
         e.preventDefault();
@@ -60,18 +66,21 @@ const AdminProfile = () => {
     }
     //Preview selected photo 
     useEffect(() => {
-        const avat = document.querySelector("#avatarView");
-        const photoUpload = document.querySelector("#fileUpload");
-        photoUpload.addEventListener("change", function () {
-            const chosenPhoto = this.files[0];
-            if (chosenPhoto) {
-                const photoReader = new FileReader();
-                photoReader.addEventListener("load", function () {
-                    avat.setAttribute("src", photoReader.result);
-                });
-                photoReader.readAsDataURL(chosenPhoto);
-            }
-        });
+        if (check === "no" || check == null) navigate("/login")
+        else {
+            const avat = document.querySelector("#avatarView");
+            const photoUpload = document.querySelector("#fileUpload");
+            photoUpload.addEventListener("change", function () {
+                const chosenPhoto = this.files[0];
+                if (chosenPhoto) {
+                    const photoReader = new FileReader();
+                    photoReader.addEventListener("load", function () {
+                        avat.setAttribute("src", photoReader.result);
+                    });
+                    photoReader.readAsDataURL(chosenPhoto);
+                }
+            });
+        }
     }, []);
 
     return (

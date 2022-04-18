@@ -8,14 +8,18 @@ import AdminModel from "../../Model/admin";
 
 function Dashboard() {
     var navigate = useNavigate();
-
+    var check = localStorage.getItem("curent_Session");
 
     const [admin, setAdmin] = useState(new AdminModel());
     useEffect(() => {
-        axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
-            setAdmin(res.data);
-        });
+        if (check === "no" || check === null) navigate("/login")
+        else {
+            axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
+                setAdmin(res.data);
+            });
+        }
     }, []);
+
     async function Logout(e, navigate) {
         e.preventDefault();
         await axios.get('http://localhost:3001/logout')
@@ -161,10 +165,6 @@ function Dashboard() {
                 </div>
             </div>
         </div>
-
-
-
-
     )
 }
 
