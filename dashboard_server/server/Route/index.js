@@ -55,7 +55,7 @@ router.get("/login/:username/:password", async (req, res) => {
           });
         
     }else{
-        res.send(null);
+        res.send("no");
     }
 });
 
