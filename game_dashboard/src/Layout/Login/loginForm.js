@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./loginForm.css"
 import md5 from "md5";
 const Logo = require('./Logo/logo_truong.png');
-// const md5 = require("md5");
+
 
 axios.defaults.withCredentials = true;
 
@@ -69,9 +69,10 @@ function Login() {
             })
     }
 
+    var check = localStorage.getItem("curent_Session");
     useEffect(() => {
-        var check = localStorage.getItem("curent_Session");
-        if (check != null) navigate("/dashboard");
+        if (check != "no" || check != null) navigate("/dashboard")
+        else navigate("/login");
     }, []);
 
     return (
@@ -101,8 +102,9 @@ function Login() {
                                                 <div className="mb-3">
                                                     <input className="form-control form-control-user" required type="password" id="Password" placeholder="Password" name="password"
                                                         onChange={(event) => setPassword(event.target.value)} />
-                                                    <span className="mb-2 text-danger">{wrongError}</span>
+
                                                 </div>
+                                                <span className="mb-2 text-danger">{wrongError}</span>
                                                 <hr />
                                                 <button className="btn btn-primary d-block btn-user w-100 fs-6" type="submit">Login</button>
 
@@ -115,9 +117,9 @@ function Login() {
                         </div>
                     </div>
                 </div>
-                <footer class="bg-white sticky-footer">
-                    <div class="container my-auto">
-                        <div class="text-center my-auto copyright"><span>Copyright © LTD2K 2022</span></div>
+                <footer className="bg-white sticky-footer">
+                    <div className="container my-auto">
+                        <div className="text-center my-auto copyright"><span>Copyright © LTD2K 2022</span></div>
                     </div>
                 </footer>
             </div >

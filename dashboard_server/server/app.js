@@ -29,6 +29,7 @@ app.set('view engine', 'jade');
 
 
 var indexRouter = require('./Route/index');
+var dashboardRouter = require('./Route/dashboard');
 var adminManagerRouter = require('./Route/adminManager');
 var userManagerRouter = require('./Route/userManager')
 
@@ -52,6 +53,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/dashboard', dashboardRouter);
 app.use('/userManagement', userManagerRouter);
 app.use('/adminManagement', adminManagerRouter);
 

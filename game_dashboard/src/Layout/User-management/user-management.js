@@ -20,7 +20,7 @@ const UserManagement = () => {
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
 
-        if (check === "no" || check == null) navigate("/login");
+        if (check === "no" || check == null) navigate("/login")
         else {
             const getUsers = async () => {
                 await axios.request("http://localhost:3001/userManagement").then(response => {
@@ -35,7 +35,7 @@ const UserManagement = () => {
             getUsers();
             getAdmin();
         }
-    }, [check, navigate]);
+    }, []);
 
     const changeStatus = ((UID, status) => {
         return async (e) => {
