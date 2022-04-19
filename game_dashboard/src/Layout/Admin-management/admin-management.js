@@ -99,13 +99,13 @@ const AdmimManagement = () => {
             name: "Full Name",
             selector: (row) => row.Username,
             sortable: true
-            
+
         },
         {
             name: "Email",
             selector: (row) => row.Email,
             sortable: true
-            
+
         },
         {
             name: "Phone",
@@ -161,14 +161,18 @@ const AdmimManagement = () => {
                     <div className="card-header py-3">
                         <div className="row">
                             <div className="col-md-6">
-                                <button className="btn btn-primary btn-sm" onClick={handleClick} >
-                                    <i className="fas fa-user-plus"></i><span>  Add a admin</span>
-                                </button>
+                                {
+                                    check === "khuongnvce140417@fpt.edu.vn"
+                                        ? <button className="btn btn-primary btn-sm" onClick={handleClick} >
+                                            <i className="fas fa-user-plus"></i><span>  Add a new admin</span>
+                                        </button> : null
+                                }
+
                             </div>
                             <div className="col-md-6">
                                 <div className="text-lg-end dataTables_filter" id="dataTable_filter">
                                     <label className="form-label"><input onChange={(e) => setQ(e.target.value)} type="text" className="form-control form-control-sm"
-                                        aria-controls="dataTable" placeholder="Search" value={Q}/>
+                                        aria-controls="dataTable" placeholder="Search" value={Q} />
                                     </label>
                                 </div>
                             </div>

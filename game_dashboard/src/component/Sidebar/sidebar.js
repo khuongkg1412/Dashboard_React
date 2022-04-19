@@ -1,12 +1,21 @@
 import "../../../src/App.css";
 import gameLogo from '../../img/LTD2K.png';
-import { useLocation, NavLink, Link } from 'react-router-dom'
+import { useLocation, NavLink } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+
 function Sidebar() {
     let location = useLocation()
+    const [active, setActive] = useState(location.pathname === '/admin-add' || location.pathname === '/adminManagement');
+    const [activeP, setActiveP] = useState(location.pathname === '/changePass' || location.pathname === '/profile');
+
+    useEffect(() => {
+        setActive(location.pathname === '/admin-add' || location.pathname === '/adminManagement');
+        setActiveP(location.pathname === '/changePass' || location.pathname === '/profile');
+
+    }, [location.pathname]);
+
     if (location.pathname === '/login') return null
 
-    const splitLocation = location.pathname.split("/");
-    console.log(splitLocation);
     return (
         <nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div className="container-fluid d-flex flex-column p-0">
@@ -15,7 +24,7 @@ function Sidebar() {
                     <div className="sidebar-brand-text mx-3 fs-4"><span>LTD2K</span></div>
                 </a>
                 <hr className="sidebar-divider my-1" />
-                
+
                 <ul className="navbar-nav text-light" id="accordionSidebar">
                     <li className="nav-item">
                         <NavLink to="/dashboard"
@@ -28,12 +37,18 @@ function Sidebar() {
                     </li>
                     <li className="nav-item">
                         <NavLink to="/profile"
-                            style={({ isActive }) => ({
-                                color: isActive ? '#fff' : '0',
-                                background: isActive ? 'rgb(29 61 124 / 35%)' : '0',
-                            })}
+                            style={{
+                                color: activeP ? '#fff' : '0',
+                                background: activeP ? 'rgb(29 61 124 / 35%)' : '0',
+                                fontWeight: activeP ? 'bold' : 'normal'
+                            }}
                             className="nav-link">
-                            <i className="fas fa-user"></i><span>Profile</span></NavLink>
+                            <i className="fas fa-user"
+                                style={{
+                                    fontWeight: activeP ? 'bold' : '',
+                                    color: activeP ? '#fff' : '',
+                                }}
+                            ></i><span>Profile</span></NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to="/userManagement"
@@ -47,11 +62,18 @@ function Sidebar() {
                     <li className="nav-item">
                         <NavLink to="/adminManagement"
                             style={({ isActive }) => ({
-                                color: isActive ? '#fff' : '0',
-                                background: isActive ? 'rgb(29 61 124 / 35%)' : '0',
+                                color: active ? '#fff' : '0',
+                                background: active ? 'rgb(29 61 124 / 35%)' : '0',
+                                fontWeight: active ? 'bold' : 'normal'
                             })}
                             className="nav-link">
-                            <i className="fas fa-users-cog"></i><span>Admin Management</span></NavLink>
+                            <i className="fas fa-users-cog"
+                                style={{
+                                    fontWeight: active ? 'bold' : '',
+                                    color: active ? '#fff' : '',
+                                }}
+                            ></i><span>Admin Management</span>
+                        </NavLink>
                     </li>
                 </ul>
             </div>
