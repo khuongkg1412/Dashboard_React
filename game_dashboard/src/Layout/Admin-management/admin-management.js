@@ -28,7 +28,7 @@ const AdmimManagement = () => {
         if (check === "no" || check == null) navigate("/login")
         else {
             const getAdmins = async () => {
-                await axios.request("http://localhost:3001/adminManagement").then(response => {
+                await axios.request("http://localhost:3001/adminManagement/"+ localStorage.getItem("curent_Session")).then(response => {
                     setData(response.data)
                 })
             }

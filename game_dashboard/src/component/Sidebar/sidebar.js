@@ -18,7 +18,7 @@ function Sidebar() {
 
     return (
         <nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-            <div className="container-fluid d-flex flex-column p-0">
+            <div className="container-fluid d-flex flex-column p-0 sticky-top">
                 <a className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand mt-2" href="/dashboard">
                     <div className="sidebar-brand-icon"><img className="rounded-circle" width="45" height="45" src={gameLogo} /></div>
                     <div className="sidebar-brand-text mx-3 fs-4"><span>LTD2K</span></div>
