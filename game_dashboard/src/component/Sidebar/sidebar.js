@@ -5,14 +5,17 @@ function Sidebar() {
     let location = useLocation()
     if (location.pathname === '/login') return null
 
+    const splitLocation = location.pathname.split("/");
+    console.log(splitLocation);
     return (
         <nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div className="container-fluid d-flex flex-column p-0">
-                <a className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/dashboard">
-                    <div className="sidebar-brand-icon"><img className="rounded-circle" width="40" height="40" src={gameLogo} /></div>
-                    <div className="sidebar-brand-text mx-3"><span>LTD2K</span></div>
+                <a className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand mt-2" href="/dashboard">
+                    <div className="sidebar-brand-icon"><img className="rounded-circle" width="45" height="45" src={gameLogo} /></div>
+                    <div className="sidebar-brand-text mx-3 fs-4"><span>LTD2K</span></div>
                 </a>
-                <hr className="sidebar-divider my-0" />
+                <hr className="sidebar-divider my-1" />
+                
                 <ul className="navbar-nav text-light" id="accordionSidebar">
                     <li className="nav-item">
                         <NavLink to="/dashboard"

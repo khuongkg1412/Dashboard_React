@@ -98,14 +98,14 @@ const AdmimManagement = () => {
         {
             name: "Full Name",
             selector: (row) => row.Username,
-            sortable: true,
-            center: true
+            sortable: true
+            
         },
         {
             name: "Email",
             selector: (row) => row.Email,
-            sortable: true,
-            center: true
+            sortable: true
+            
         },
         {
             name: "Phone",
@@ -122,7 +122,9 @@ const AdmimManagement = () => {
                             ? (row.Status === 1
                                 ? <FormControlLabel control={<Switch checked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
                                 : <FormControlLabel control={<Switch onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
-                            : null
+                            : (row.Status === 1
+                                ? <label className='fw-bold text-success fs-6'> Enable</label>
+                                : <label className='fw-bold text-danger fs-6'> Disable</label>)
                     }
                 </div>
             ),

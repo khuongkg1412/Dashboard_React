@@ -57,10 +57,11 @@ const AdminProfile = () => {
 
                 <div className="row mb-3">
 
-                    <div className="col-lg-6">
+                    <div className="col-lg-10">
 
                         <div className="row">
-                            <div className="col">
+                            <div className="col-3"></div>
+                            <div className="col-8">
                                 <div className="card shadow mb-3">
                                     <div className="card-header py-3">
                                         <p className="text-primary m-0 fw-bold">Change your password</p>
@@ -122,7 +123,7 @@ const AdminProfile = () => {
     }
     //Validation new password input
     function checkNewPassword(oldpassword, newpassword) {
-        let regex = /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,32}$/;
+        let regex = /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\\[\]|\\:;"'<>,.?/_₹]).{8,32}$/;
         var isvalid = false;
         if (newpassword == "") {
             setNewPassError("New Password cannot be blank!");
