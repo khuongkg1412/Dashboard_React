@@ -71,8 +71,7 @@ function Login() {
 
     var check = localStorage.getItem("curent_Session");
     useEffect(() => {
-        if (check != "no" || check != null) navigate("/dashboard")
-        else navigate("/login");
+        if (check != null) navigate("/dashboard")
     }, []);
 
     return (
@@ -117,13 +116,12 @@ function Login() {
                         </div>
                     </div>
                 </div>
-                <footer className="bg-white sticky-footer">
-                    <div className="container my-auto">
-                        <div className="text-center my-auto copyright"><span>Copyright © LTD2K 2022</span></div>
-                    </div>
-                </footer>
             </div >
-
+            <footer className="bg-white sticky-footer">
+                <div className="container my-auto">
+                    <div className="text-center my-auto copyright"><span>Copyright © LTD2K 2022</span></div>
+                </div>
+            </footer>
         </div >
     );
 }

@@ -69,7 +69,7 @@ const AdminProfile = () => {
     var check = localStorage.getItem("curent_Session");
     //Using useEffect to call the API once mounted and set the data
     useEffect(() => {
-        if (check === "no" || check == null) navigate("/login");
+        if (check === "no" || check == null) {navigate("/login")}
         else {
             const getAdmin = async () => {
                 await axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {

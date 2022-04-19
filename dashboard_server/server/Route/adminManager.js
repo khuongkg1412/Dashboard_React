@@ -160,9 +160,9 @@ router.get("/listPhone", async (req, res) => {
   const data = await AdminDB.get();
   if (!data.empty) {
     data.forEach((element) => {
-      if(element.data().Email != emailsession){
-        arrayPhone.push(element.data().Phone);
-      }
+
+      arrayPhone.push(element.data().Phone);
+
     });
     res.send(arrayPhone);
   } else {
@@ -176,9 +176,9 @@ router.get("/listEmail", async (req, res) => {
   const data = await AdminDB.get();
   if (!data.empty) {
     data.forEach((element) => {
-      if(element.data().Email != emailsession){
-        arrayEmail.push(element.data().Email);
-      }
+
+      arrayEmail.push(element.data().Email);
+
     });
     res.send(arrayEmail);
   } else {

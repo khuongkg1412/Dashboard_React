@@ -91,7 +91,7 @@ function Dashboard() {
                                         <div className="text-uppercase text-primary fw-bold text-xs mb-1"><span>Total Account</span></div>
                                         <div className="text-dark fw-bold h5 mb-0"><span>{statictis[0]}</span></div>
                                     </div>
-                                    <div className="col-auto"><i className="fas fa-map fa-2x text-gray-300"></i></div>
+                                    <div className="col-auto"><i className="fas fa-user fa-2x text-gray-300"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@ function Dashboard() {
                                             </div>                
                                         </div>
                                     </div>
-                                    <div className="col-auto"><i className="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                    <div className="col-auto"><i className="fas fa-boxes fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@ function Dashboard() {
                                         <div className="text-uppercase text-warning fw-bold text-xs mb-1"><span>Total Achievement</span></div>
                                         <div className="text-dark fw-bold h5 mb-0"><span>{statictis[3]}</span></div>
                                     </div>
-                                    <div className="col-auto"><i className="fas fa-comments fa-2x text-gray-300"></i></div>
+                                    <div className="col-auto"><i className="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
                                 </div>
                             </div>
                         </div>
