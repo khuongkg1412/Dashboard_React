@@ -73,6 +73,9 @@ function Dashboard() {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
+                                <Dropdown.Item href="/profile">
+                                    <i className="fas fa-user fa-sm fa-fw me-2 text-gray-400" ></i>Profile
+                                </Dropdown.Item>
                                 <Dropdown.Item href="#" onClick={(e) => Logout(e, navigate)}>
                                     <i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400" ></i>Logout
                                 </Dropdown.Item>
@@ -119,7 +122,7 @@ function Dashboard() {
                                         <div className="row g-0 align-items-center">
                                             <div className="col-auto">
                                                 <div className="text-dark fw-bold h5 mb-0 me-3"><span>{statictis[2]}</span></div>
-                                            </div>                
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-auto"><i className="fas fa-boxes fa-2x text-gray-300"></i>
@@ -161,26 +164,17 @@ function Dashboard() {
                         </div>
                     </div>
                     <div class="col-lg-5 col-xl-4">
-                            <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary fw-bold m-0">Revenue Sources</h6>
-                                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i
-                                                class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart-area"></div>
-                                    <div class="text-center small mt-4"><span class="me-2"><i
-                                                class="fas fa-circle text-primary"></i>&nbsp;Direct</span><span class="me-2"><i
-                                                class="fas fa-circle text-success"></i>&nbsp;Social</span><span class="me-2"><i class="fas fa-circle text-info"></i>&nbsp;Refferal</span>
-                                    </div>
+                        <div class="card shadow mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h6 class="text-primary fw-bold m-0">Top 5 Player with Highest Level </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

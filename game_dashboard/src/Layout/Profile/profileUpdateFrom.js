@@ -45,6 +45,9 @@ const AdminProfile = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
+                                <Dropdown.Item href="/profile">
+                                    <i className="fas fa-user fa-sm fa-fw me-2 text-gray-400" ></i>Profile
+                                </Dropdown.Item>
                                 <Dropdown.Item href="#" onClick={(e) => Logout(e, navigate)}>
                                     <i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400" ></i>Logout
                                 </Dropdown.Item>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from 'react-bootstrap';
 import Switch from "@mui/material/Switch"
@@ -12,7 +12,7 @@ import AdminModel from "../../Model/admin";
 const UserManagement = () => {
     const navigate = useNavigate();
 
-    
+
     const [Q, setQ] = useState("");
     const [data, setData] = useState([]);
     const [admin, setAdmin] = useState(new AdminModel());
@@ -20,7 +20,7 @@ const UserManagement = () => {
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
 
-        if (check === "no" || check === null) {navigate("/login")}
+        if (check === "no" || check === null) { navigate("/login") }
         else {
             const getUsers = async () => {
                 await axios.request("http://localhost:3001/userManagement").then(response => {
@@ -71,7 +71,7 @@ const UserManagement = () => {
     }
 
     function search(rows) {
-        return rows.filter((row) => row.Name.toLowerCase().indexOf (Q) > -1);
+        return rows.filter((row) => row.Name.toLowerCase().indexOf(Q) > -1);
     }
 
     const columns = [
@@ -97,7 +97,7 @@ const UserManagement = () => {
             selector: (row) => row.Level,
             sortable: true,
             center: true
-        }, 
+        },
         {
             name: "Highest Stage",
             selector: (row) => row.Stage,
@@ -111,10 +111,10 @@ const UserManagement = () => {
                 <div className="card-body text-center">
                     {
                         // check === "khuongnvce140417@fpt.edu.vn"
-                            (!row.Status
-                                ? <FormControlLabel control={<Switch checked onClick={changeStatus(row.Id, row.Status)} />} label="Enable" />
-                                : <FormControlLabel control={<Switch  onClick={changeStatus(row.Id, row.Status)} />} label="Disable" />)
-                            // : null
+                        (!row.Status
+                            ? <FormControlLabel control={<Switch checked onClick={changeStatus(row.Id, row.Status)} />} label="Enable" />
+                            : <FormControlLabel control={<Switch onClick={changeStatus(row.Id, row.Status)} />} label="Disable" />)
+                        // : null
                     }
                 </div>
             ),
@@ -141,6 +141,9 @@ const UserManagement = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
+                                <Dropdown.Item href="/profile">
+                                    <i className="fas fa-user fa-sm fa-fw me-2 text-gray-400" ></i>Profile
+                                </Dropdown.Item>
                                 <Dropdown.Item href="#" onClick={(e) => Logout(e, navigate)}>
                                     <i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400" ></i>Logout
                                 </Dropdown.Item>
@@ -150,16 +153,16 @@ const UserManagement = () => {
                 </div>
             </nav>
             <div className="container-fluid">
-            <Card>
+                <Card>
                     <div className="card-header py-3">
                         <div className="row">
                             <div className="col-md-6">
-                                
+
                             </div>
                             <div className="col-md-6">
                                 <div className="text-lg-end dataTables_filter" id="dataTable_filter">
                                     <label className="form-label"><input onChange={(e) => setQ(e.target.value)} type="text" className="form-control form-control-sm"
-                                        aria-controls="dataTable" placeholder="Search" value={Q}/>
+                                        aria-controls="dataTable" placeholder="Search" value={Q} />
                                     </label>
                                 </div>
                             </div>

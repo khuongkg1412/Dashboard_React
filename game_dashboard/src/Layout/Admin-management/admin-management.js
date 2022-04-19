@@ -28,7 +28,7 @@ const AdmimManagement = () => {
         if (check === "no" || check == null) navigate("/login")
         else {
             const getAdmins = async () => {
-                await axios.request("http://localhost:3001/adminManagement/"+ localStorage.getItem("curent_Session")).then(response => {
+                await axios.request("http://localhost:3001/adminManagement/" + localStorage.getItem("curent_Session")).then(response => {
                     setData(response.data)
                 })
             }
@@ -148,9 +148,13 @@ const AdmimManagement = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
+                                <Dropdown.Item href="/profile">
+                                    <i className="fas fa-user fa-sm fa-fw me-2 text-gray-400" ></i>Profile
+                                </Dropdown.Item>
                                 <Dropdown.Item href="#" onClick={(e) => Logout(e, navigate)}>
                                     <i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400" ></i>Logout
                                 </Dropdown.Item>
+
                             </Dropdown.Menu>
                         </Dropdown>
                     </ul>
