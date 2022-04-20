@@ -12,6 +12,8 @@ function Dashboard() {
 
     const [data, setData] = useState([]);
     const [statictis, setStatictis] = useState([]);
+    const [top5, setTop5] = useState([]);
+
     const [admin, setAdmin] = useState(new AdminModel());
     useEffect(() => {
         if (check === "no" || check === null) navigate("/login")
@@ -26,6 +28,11 @@ function Dashboard() {
                     setStatictis(response.data)
                 })
             }
+            const getTop5Data = async () => {
+                await axios.request("http://localhost:3001/dashboard/top5").then(response => {
+                    setTop5(response.data)
+                })
+            }
             const getAdmin = async () => {
                 await axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
                     setAdmin(res.data);
@@ -33,7 +40,11 @@ function Dashboard() {
             }
             getChartData();
             getStatictisData();
+            getTop5Data();
             getAdmin();
+            top5.forEach(e => {
+                console.log(e.Name);
+            })
         }
     }, []);
 
@@ -148,30 +159,43 @@ function Dashboard() {
                 <div className="row">
                     <div className="col-lg-7 col-xl-8">
                         <div className="card shadow mb-4">
-                            <div className="card-header d-flex justify-content-between align-items-center">
-                                <h6 className="text-primary fw-bold m-0">Player Register Overview</h6>
-                                <div className="dropdown no-arrow"><button className="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i
-                                    className="fas fa-ellipsis-v text-gray-400"></i></button>
-                                    <div className="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                                        <p className="text-center dropdown-header">dropdown header:</p><a className="dropdown-item" href="#">&nbsp;Action</a><a className="dropdown-item" href="#">&nbsp;Another action</a>
-                                        <div className="dropdown-divider"></div><a className="dropdown-item" href="#">&nbsp;Something else here</a>
-                                    </div>
-                                </div>
+                            <div className="card-header d-flex justify-content-center align-items-center">
+                                <h6 className="text-primary fw-bold my-2">Player Register Overview</h6>
                             </div>
                             <div className="card-body">
                                 <Line data={chartData} />
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-xl-4">
-                        <div class="card shadow mb-4">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h6 class="text-primary fw-bold m-0">Top 5 Player with Highest Level </h6>
+                    <div className="col-lg-5 col-xl-4">
+                        <div className="card shadow mb-4">
+                            <div className="card-header d-flex justify-content-center align-items-center">
+                                <h6 className="text-primary fw-bold my-2">Top 5 Player with Highest Level </h6>
                             </div>
-                            <div class="card-body">
-                                <div class="chart-area">
-                                    
-                                </div>
+                            <div className="card-body">
+                                <table className="table">
+                                    <thead >
+                                        <tr>
+                                            <th className="text-center">Top</th>
+                                            <th colSpan="2">Name</th>
+                                            <th className="text-center">Level</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            top5.map((item, index) => {
+                                                return (
+                                                    <tr className='pb-2'>
+                                                        <th className="text-center" scope="row">{index + 1}</th>
+                                                        <td colSpan="2">{item.Name}</td>
+                                                        <td className="text-center">{item.Level}</td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
