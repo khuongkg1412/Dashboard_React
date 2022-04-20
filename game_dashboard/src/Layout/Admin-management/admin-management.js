@@ -25,10 +25,10 @@ const AdmimManagement = () => {
 
     // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
-        if (check === "no" || check == null) navigate("/login");
+        if (check === "no" || check == null) navigate("/login")
         else {
             const getAdmins = async () => {
-                await axios.request("http://localhost:3001/adminManagement").then(response => {
+                await axios.request("http://localhost:3001/adminManagement/" + localStorage.getItem("curent_Session")).then(response => {
                     setData(response.data)
                 })
             }
@@ -98,14 +98,14 @@ const AdmimManagement = () => {
         {
             name: "Full Name",
             selector: (row) => row.Username,
-            sortable: true,
-            center: true
+            sortable: true
+
         },
         {
             name: "Email",
             selector: (row) => row.Email,
-            sortable: true,
-            center: true
+            sortable: true
+
         },
         {
             name: "Phone",
@@ -122,7 +122,9 @@ const AdmimManagement = () => {
                             ? (row.Status === 1
                                 ? <FormControlLabel control={<Switch checked onClick={changeStatus(row.Email, row.Status)} />} label="Enable" />
                                 : <FormControlLabel control={<Switch onClick={changeStatus(row.Email, row.Status)} />} label="Disable" />)
-                            : null
+                            : (row.Status === 1
+                                ? <label className='fw-bold text-success fs-6'> Enable</label>
+                                : <label className='fw-bold text-danger fs-6'> Disable</label>)
                     }
                 </div>
             ),
@@ -146,9 +148,13 @@ const AdmimManagement = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
+                                <Dropdown.Item href="/profile">
+                                    <i className="fas fa-user fa-sm fa-fw me-2 text-gray-400" ></i>Profile
+                                </Dropdown.Item>
                                 <Dropdown.Item href="#" onClick={(e) => Logout(e, navigate)}>
                                     <i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400" ></i>Logout
                                 </Dropdown.Item>
+
                             </Dropdown.Menu>
                         </Dropdown>
                     </ul>
@@ -159,14 +165,18 @@ const AdmimManagement = () => {
                     <div className="card-header py-3">
                         <div className="row">
                             <div className="col-md-6">
-                                <button className="btn btn-primary btn-sm" onClick={handleClick} >
-                                    <i className="fas fa-user-plus"></i><span>  Add a admin</span>
-                                </button>
+                                {
+                                    check === "khuongnvce140417@fpt.edu.vn"
+                                        ? <button className="btn btn-primary btn-sm" onClick={handleClick} >
+                                            <i className="fas fa-user-plus"></i><span>  Add a new admin</span>
+                                        </button> : null
+                                }
+
                             </div>
                             <div className="col-md-6">
                                 <div className="text-lg-end dataTables_filter" id="dataTable_filter">
                                     <label className="form-label"><input onChange={(e) => setQ(e.target.value)} type="text" className="form-control form-control-sm"
-                                        aria-controls="dataTable" placeholder="Search" value={Q}/>
+                                        aria-controls="dataTable" placeholder="Search" value={Q} />
                                     </label>
                                 </div>
                             </div>

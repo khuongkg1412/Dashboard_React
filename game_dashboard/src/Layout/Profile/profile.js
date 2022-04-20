@@ -39,7 +39,7 @@ const AdminProfile = () => {
     //Using useEffect to call the API once mounted and set the data
     useEffect(() => {
         console.log(check);
-        if (check === "no" || check == null) navigate("/login")
+        if (check === "no" || check == null) { navigate("/login") }
         else {
             const getAdmin = async () => {
                 await axios.get("http://localhost:3001/adminManagement/getAdmin/" + localStorage.getItem("curent_Session")).then((res) => {
@@ -99,6 +99,9 @@ const AdminProfile = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
+                                <Dropdown.Item href="/profile">
+                                    <i className="fas fa-user fa-sm fa-fw me-2 text-gray-400" ></i>Profile
+                                </Dropdown.Item>
                                 <Dropdown.Item href="#" onClick={(e) => Logout(e, navigate)}>
                                     <i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400" ></i>Logout
                                 </Dropdown.Item>

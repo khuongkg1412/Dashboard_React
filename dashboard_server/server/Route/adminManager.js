@@ -10,8 +10,9 @@ const AdminDB = db.firestore().collection("Admin");
 const AdminModel = require("../Model/admin");
 
 /* GET admins listing. */
-router.get("/", async (req, res) => {
+router.get("/:email", async (req, res) => {
   const data = await AdminDB.get();
+  const emailsession = req.session.userId;
   const arrayAdmin = [];
   if (data.empty) {
 
@@ -19,17 +20,17 @@ router.get("/", async (req, res) => {
   } else {
 
     data.forEach(element => {
-      console.log(element.id);
-      var admin = new AdminModel(
-        element.data().Avatar,
-        element.data().Username,
-        element.data().Email,
-        element.data().Phone,
-        element.data().Status,
-        element.data().Password,
-      );
-      arrayAdmin.push(admin);
-
+      if (element.data().Email != emailsession) {
+        var admin = new AdminModel(
+          element.data().Avatar,
+          element.data().Username,
+          element.data().Email,
+          element.data().Phone,
+          element.data().Status,
+          element.data().Password,
+        );
+        arrayAdmin.push(admin);
+      }
     }); console.log(arrayAdmin.length);
   }
   res.send(arrayAdmin);
@@ -160,9 +161,9 @@ router.get("/listPhone", async (req, res) => {
   const data = await AdminDB.get();
   if (!data.empty) {
     data.forEach((element) => {
-      if(element.data().Email != emailsession){
-        arrayPhone.push(element.data().Phone);
-      }
+
+      arrayPhone.push(element.data().Phone);
+
     });
     res.send(arrayPhone);
   } else {
@@ -176,9 +177,9 @@ router.get("/listEmail", async (req, res) => {
   const data = await AdminDB.get();
   if (!data.empty) {
     data.forEach((element) => {
-      if(element.data().Email != emailsession){
-        arrayEmail.push(element.data().Email);
-      }
+
+      arrayEmail.push(element.data().Email);
+
     });
     res.send(arrayEmail);
   } else {

@@ -17,19 +17,19 @@ router.get("/session", async (req, res) => {
     res.send(req.session);
 });
 
-router.get('/logout', async (req,res) => {
-    req.session.destroy(function(err) {
-        return res.status(200).json({status: 'success', session: 'cannot access session here'})
+router.get('/logout', async (req, res) => {
+    req.session.destroy(function (err) {
+        return res.status(200).json({ status: 'success', session: 'cannot access session here' })
     })
 });
 
 
 //get session
-router.get('/get_session',(req,res) => {
-    session=req.session;
-    if(session.userid != "no"){
+router.get('/get_session', (req, res) => {
+    session = req.session;
+    if (session.userid != "no") {
         res.send(session.userid);
-    }else{
+    } else {
         res.send("no");
     }
 });
@@ -37,32 +37,32 @@ router.get('/get_session',(req,res) => {
 router.get("/login/:username/:password", async (req, res) => {
     const username = req.params.username;
     const password = req.params.password;
-    const DBUsername = await AdminDB.where('Email','==',username).get();
+    const DBUsername = await AdminDB.where('Email', '==', username).get();
     console.log(DBUsername.empty);
-    if(!DBUsername.empty){
+    if (!DBUsername.empty) {
         DBUsername.forEach(doc => {
-            
-           if(doc.data().Password == password){
-            
-            userSession=req.session;
-            userSession.userId = req.params.username;
-            //console.log(req.session);
-            console.log(userSession);
-            res.send(userSession.userId);
-           }else{
-            res.send("no");
-           }
-          });
-        
-    }else{
+
+            if (doc.data().Password == password && doc.data().Status == 1) {
+
+                userSession = req.session;
+                userSession.userId = req.params.username;
+                //console.log(req.session);
+                console.log(userSession);
+                res.send(userSession.userId)
+            } else {
+                res.send("no");
+            }
+        });
+
+    } else {
         res.send("no");
     }
 });
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', function (req, res, next) {
+    res.render('index', { title: 'Express' });
 });
 
 module.exports = router;

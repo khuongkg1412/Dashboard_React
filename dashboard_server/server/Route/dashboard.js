@@ -12,6 +12,7 @@ const ItemDB = db.firestore().collection("Item");
 var router = express.Router();
 
 const Auth = require("../authFirebase");
+const UserModel = require("../Model/user");
 
 
 router.get("/", async (req, res) => {
@@ -29,7 +30,7 @@ router.get("/", async (req, res) => {
 
                     var currentData = new Date();
                     var year = currentData.getFullYear();
-                    
+
                     if (year == str[3]) {
                         switch (str[2]) {
                             case "Jan":
@@ -76,6 +77,33 @@ router.get("/", async (req, res) => {
     res.send(chartData);
 });
 
+router.get("/top5", async (req, res) => {
+    const ListTop = await PlayerDB.orderBy('level.level', 'desc').limit(4).get();
+    const arrayTop = [];
+    if (ListTop.empty) {
+
+        res.status(404).send("No admin in list");
+    } else {
+
+        ListTop.forEach(element => {
+
+            var player = new UserModel(
+                element.data().generalInformation.username_Player,
+                "",
+                "",
+                element.data().level.level,
+                element.data().level.stage,
+                "",
+                ""
+            );
+            arrayTop.push(player);
+
+        }); console.log(arrayTop.length);
+    }
+    res.send(arrayTop);
+});
+
+
 router.get("/statictis", async (req, res) => {
     const Statictis = [0, 0, 0, 0];
 
@@ -86,7 +114,7 @@ router.get("/statictis", async (req, res) => {
         await Auth.auth().listUsers(50)
             .then((listUsersResult) => {
                 listUsersResult.users.forEach(userRecord => {
-                    Statictis[0] += 1 ;
+                    Statictis[0] += 1;
                 });
             });
     };

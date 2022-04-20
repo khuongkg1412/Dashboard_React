@@ -40,6 +40,7 @@ function Login() {
     //     return formIsValid;
     // };
 
+
     function Login(e, navigate) {
         e.preventDefault();
 
@@ -49,30 +50,35 @@ function Login() {
             password: document.getElementById('Password').value,
         }
 
+        if (email === '') {
+            setWrongError('Entering an email is necessary!');
+        } else if (password === '') {
+            setWrongError('Entering a password is necessary!');
+        } else {
+            axios.get('http://localhost:3001/login/' + request.email + '/' + md5(request.password), request)//md5(md5(request.password))
+                .then(respn => {
+                    if (respn.data != "no") {
+                        setWrongError("");
+                        // alert("Welcome " + respn.data + "!");
 
-        axios.get('http://localhost:3001/login/' + request.email + '/' + md5(request.password), request)//md5(md5(request.password))
-            .then(respn => {
-                if (respn.data != "no") {
-                    setWrongError("");
-                    alert("Welcome " + respn.data + "!");
+                        localStorage.setItem("curent_Session", respn.data);
+                        navigate("/dashboard");
 
-                    localStorage.setItem("curent_Session", respn.data);
-                    navigate("/dashboard");
+                    } else {
+                        setWrongError("The Email or Password is Incorrect!");
+                        // alert("Wrong user name or password")
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
 
-                } else {
-                    setWrongError("The Email or Password is Incorrect!");
-                    // alert("Wrong user name or password")
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
     }
 
     var check = localStorage.getItem("curent_Session");
     useEffect(() => {
-        if (check != "no" || check != null) navigate("/dashboard")
-        else navigate("/login");
+        if (check != null) navigate("/dashboard")
     }, []);
 
     return (
@@ -96,11 +102,12 @@ function Login() {
                                             </div>
                                             <form className="user" onSubmit={(e) => Login(e, navigate)}>
                                                 <div className="mb-3">
-                                                    <input className="form-control form-control-user" required type="email" id="Email" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email"
+                                                    <input className="form-control form-control-user"
+                                                    type="email" id="Email" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email"
                                                         onChange={(event) => setEmail(event.target.value)} />
                                                 </div>
                                                 <div className="mb-3">
-                                                    <input className="form-control form-control-user" required type="password" id="Password" placeholder="Password" name="password"
+                                                    <input className="form-control form-control-user" type="password" id="Password" placeholder="Password" name="password"
                                                         onChange={(event) => setPassword(event.target.value)} />
 
                                                 </div>
@@ -117,13 +124,12 @@ function Login() {
                         </div>
                     </div>
                 </div>
-                <footer className="bg-white sticky-footer">
-                    <div className="container my-auto">
-                        <div className="text-center my-auto copyright"><span>Copyright © LTD2K 2022</span></div>
-                    </div>
-                </footer>
             </div >
-
+            <footer className="bg-white sticky-footer">
+                <div className="container my-auto">
+                    <div className="text-center my-auto copyright"><span>Copyright © LTD2K 2022</span></div>
+                </div>
+            </footer>
         </div >
     );
 }
