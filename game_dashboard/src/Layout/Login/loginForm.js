@@ -51,9 +51,9 @@ function Login() {
         }
 
         if (email === '') {
-            setWrongError('Entering an email is necessary!');
+            setWrongError('Email can not be blank!');
         } else if (password === '') {
-            setWrongError('Entering a password is necessary!');
+            setWrongError('Password can not be blank!');
         } else {
             axios.get('http://localhost:3001/login/' + request.email + '/' + md5(request.password), request)//md5(md5(request.password))
                 .then(respn => {

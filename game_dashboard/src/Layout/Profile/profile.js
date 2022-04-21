@@ -216,8 +216,8 @@ const AdminProfile = () => {
             setPhoneError("Phone Number cannot be empty!");
             isvalid = false;
             errorPhone();
-        } else if (!phone.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/)) {
-            setPhoneError("Your Phone Number is invalid (Example: 84123456789 or 0123456789)");
+        } else if (!phone.match(/(0[3|5|7|8|9])+([0-9]{8})\b/)) {
+            setPhoneError("Your Phone Number is invalid (Example: 0123456789)");
             isvalid = false;
             errorPhone();
         } else if (checkDuplicatePhone(phone)) {
